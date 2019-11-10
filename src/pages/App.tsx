@@ -11,14 +11,32 @@ const App: React.FC = () => {
     updateInput(e.target.value);
   };
 
+  const resetState = () => {
+    updateInput("");
+    toggleShowQR(false);
+  }
+
   return (
     <div className="App">
       <Header />
-      <Input handleChange={handleChange} />
-      <BrightEthereumDeepLinkQR ethAddress={input} showQR={showQR} />
-      <button onClick={() => toggleShowQR(!showQR)} disabled={!input}>
-        Link BrightID
-      </button>
+      {
+        !showQR && <Input handleChange={handleChange} />
+      }
+      {
+        showQR && <BrightEthereumDeepLinkQR ethAddress={input} />
+      }
+      {
+        !showQR &&
+        <button onClick={() => toggleShowQR(!showQR)} disabled={!input}>
+          Link BrightID
+        </button>
+      }
+      {
+        showQR &&
+        <button onClick={resetState}>
+          Back
+        </button>
+      }
     </div>
   );
 };
