@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import Input from "./input";
 import BrightEthereumDeepLinkQR from "./qrGenerator";
-import { Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
+import { Button, Form, Input } from 'reactstrap';
 
 const Main = () => {
     const [input, updateInput] = useState("");
@@ -19,33 +19,28 @@ const Main = () => {
     return (
         <Form>
             <div className="main-form">
-                <Label for="ethereumAddress">Enter your Ethereum address</Label>
-                <Input id="ethereumAddress" spellCheck={false} autocomplete="off" className="main-input" placeholder=" " />
-                <Button size="lg" color="neutral" type="button">
-                    Submit
-              </Button>
+                {
+                    !showQR &&
+                    <Input onInput={handleChange} id="ethereumAddress" spellCheck={false} autocomplete="off" className="main-input" placeholder="Enter your Ethereum address" />
+                }
+                {
+                    showQR &&
+                    <BrightEthereumDeepLinkQR ethAddress={input} />
+                }
+                {
+                    !showQR &&
+                    <Button onClick={() => toggleShowQR(!showQR)} size="lg" color="neutral" type="button" disabled={!input}>
+                        Submit
+                    </Button>
+                }
+                {
+                    showQR &&
+                    <Button onClick={resetState} size="lg" color="neutral" type="button">
+                        Back
+                    </Button>
+                }
             </div>
         </Form>
-        // <div>
-        //     {
-        //         !showQR && <Input handleChange={handleChange} />
-        //     }
-        //     {
-        //         showQR && <BrightEthereumDeepLinkQR ethAddress={input} />
-        //     }
-        //     {
-        //         !showQR &&
-        //         <button onClick={() => toggleShowQR(!showQR)} disabled={!input}>
-        //             Link BrightID
-        // </button>
-        //     }
-        //     {
-        //         showQR &&
-        //         <button onClick={resetState}>
-        //             Back
-        // </button>
-        //     }
-        // </div>
     );
 };
 
