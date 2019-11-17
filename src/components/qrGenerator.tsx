@@ -14,10 +14,7 @@ const BrightEthereumDeepLinkQR = ({
   const deepLink = deepLinkPrefix + ethAddress;
   return (
     <div>
-      <div>
-        <p>Scan the QR code to connect your Ethereum address with your BrightID account</p>
-        <QRCode value={deepLink} />
-      </div>
+      <QRCode value={deepLink} size={192} />
     </div>);
 };
 
