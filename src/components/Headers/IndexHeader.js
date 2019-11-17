@@ -3,6 +3,7 @@ import React from "react";
 
 // reactstrap components
 import { Container } from "reactstrap";
+import Main from "components/main";
 // core components
 
 function IndexHeader() {
@@ -24,7 +25,7 @@ function IndexHeader() {
 
   return (
     <>
-      <div className="page-header clear-filter" filter-color="blue">
+      <div className="page-header clear-filter">
         <div
           className="page-header-image"
           style={{
@@ -33,15 +34,16 @@ function IndexHeader() {
           ref={pageHeader}
         ></div>
         <Container>
-          {/* <div className="content-center brand">
-            <img
+          <div className="content-center brand">
+            {/* <img
               alt="..."
               className="n-logo"
               src={require("assets/img/now-logo.png")}
-            ></img>
-            <h1 className="h1-seo">Now UI Kit.</h1>
-            <h3>A beautiful Bootstrap 4 UI kit. Yours free.</h3>
-          </div> */}
+            ></img> */}
+            <h1 className="h1-seo">Bright Ethereum</h1>
+            <h3>Connect your Ethereum address to a global, unique identity network</h3>
+            <Main />
+          </div>
           {/* <h6 className="category category-absolute">
             Designed by{" "}
             <a href="http://invisionapp.com/?ref=creativetim" target="_blank">
