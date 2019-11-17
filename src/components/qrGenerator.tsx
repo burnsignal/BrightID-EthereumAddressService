@@ -6,7 +6,7 @@ interface BrightEthereumDeepLinkQRProps {
 }
 
 const deepLinkPrefix =
-  "brightid://link-verification/http:%2f%2fnode.brightid.org/BrightEthereum/";
+  "brightid://link-verification/http:%2f%2fnode.brightid.org/Ethereum/";
 
 const BrightEthereumDeepLinkQR = ({
   ethAddress,
