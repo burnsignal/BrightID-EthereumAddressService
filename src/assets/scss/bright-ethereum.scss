@@ -1,0 +1,64 @@
+/*!
+
+ =========================================================
+ * Now UI Kit React - v1.0.0 based on Now UI Kit - v1.3.0
+ =========================================================
+
+ * Product Page: https://www.creative-tim.com/product/bright-ethereum-react
+ * Copyright 2019 Creative Tim (http://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/bright-ethereum-react/blob/master/LICENSE.md)
+
+ * Designed by www.invisionapp.com Coded by www.creative-tim.com
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
+
+@import 'bright-ethereum/variables';
+@import 'bright-ethereum/mixins';
+
+// Plugins CSS
+@import "bright-ethereum/plugins/plugin-bootstrap-switch";
+@import "bright-ethereum/plugins/plugin-nouislider";
+@import "bright-ethereum/plugins/plugin-datepicker";
+
+// Core CSS
+@import "bright-ethereum/buttons";
+@import "bright-ethereum/inputs";
+@import "bright-ethereum/checkboxes-radio";
+@import "bright-ethereum/progress";
+@import "bright-ethereum/badges";
+@import "bright-ethereum/pagination";
+@import "bright-ethereum/typography";
+@import "bright-ethereum/misc";
+@import "bright-ethereum/pills";
+
+// components
+// @import "bright-ethereum/nucleo-outline";
+
+@import "bright-ethereum/tabs";
+@import "bright-ethereum/navbar";
+@import "bright-ethereum/dropdown";
+@import "bright-ethereum/alerts";
+@import "bright-ethereum/images";
+@import "bright-ethereum/popups";
+@import "bright-ethereum/modals";
+@import "bright-ethereum/carousel";
+@import "bright-ethereum/footers";
+
+// Cards
+@import "bright-ethereum/cards";
+@import "bright-ethereum/cards/card-plain";
+@import "bright-ethereum/cards/card-signup";
+
+// example pages and sections
+@import "bright-ethereum/example-pages";
+@import "bright-ethereum/sections";
+
+
+@import "bright-ethereum/responsive";
+
+// React
+@import "react/react-differences"
