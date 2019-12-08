@@ -1,4 +1,5 @@
 {
+  "homepage": "https://burnsignal.github.io/BrightID-EthereumAddressService/",
   "name": "app",
   "version": "0.1.0",
   "private": true,
@@ -9,6 +10,7 @@
     "@types/react-dom": "16.9.3",
     "@types/reactstrap": "^8.0.6",
     "clean": "^4.0.2",
+    "gh-pages": "^2.1.1",
     "moment": "2.24.0",
     "node-sass": "4.12.0",
     "nouislider": "14.0.2",
@@ -31,7 +33,9 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
     "compile-sass": "node-sass src/assets/scss/bright-ethereum.scss src/assets/css/bright-ethereum.css",
     "minify-sass": "node-sass src/assets/scss/bright-ethereum.scss src/assets/css/bright-ethereum.min.css --output-style compressed",
-    "map-sass": "node-sass src/assets/scss/bright-ethereum.scss src/assets/css/bright-ethereum.css --source-map true"
+    "map-sass": "node-sass src/assets/scss/bright-ethereum.scss src/assets/css/bright-ethereum.css --source-map true",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
