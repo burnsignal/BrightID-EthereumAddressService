@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-// import Input from "./input";
 import BrightEthereumDeepLinkQR from "./qrGenerator";
-import { Button, Form, Input, Modal, ModalBody, Container } from 'reactstrap';
+import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon } from 'reactstrap';
+import { assignEthereum } from '../util/utilJS'
+import MetaMask from '../assets/img/MetaMask.svg'
 
 const Main = () => {
     const [input, updateInput] = useState("");
     const [showQR, toggleShowQR] = useState(false);
+    const [ethereum] = useState(() => assignEthereum());
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         updateInput(e.target.value);
@@ -16,13 +18,45 @@ const Main = () => {
         toggleShowQR(false);
     }
 
+    const enableEthereum = async () => {
+        const result = await ethereum.enable()
+        updateInput(result[0])
+    }
+
     return (
         <Form>
             <div className="main-form">
-                <Input onChange={handleChange} id="ethereumAddress" spellCheck={false} autoComplete="off" className="main-input" placeholder="Enter your Ethereum address" value={input} />
-                <Button onClick={() => toggleShowQR(!showQR)} size="lg" color="neutral" type="button" disabled={!input}>
+                <InputGroup>
+                    <Input
+                        onChange={handleChange}
+                        id="ethereumAddress"
+                        spellCheck={false}
+                        autoComplete="off"
+                        className="main-input"
+                        placeholder="Enter your Ethereum address"
+                        value={input}
+                    />
+                    <InputGroupAddon addonType="append">
+                        <Button
+                            className="inlineButton"
+                            onClick={() => enableEthereum()}
+                            color="neutral"
+                            type="button"
+                            disabled={!ethereum}
+                        >
+                            <img src={MetaMask} />
+                        </Button>
+                    </InputGroupAddon>
+                </InputGroup>
+                <Button
+                    onClick={() => toggleShowQR(!showQR)}
+                    size="lg"
+                    color="neutral"
+                    type="button"
+                    disabled={!input}
+                >
                     Submit
-                    </Button>
+                </Button>
                 {
                     showQR &&
                     <div>

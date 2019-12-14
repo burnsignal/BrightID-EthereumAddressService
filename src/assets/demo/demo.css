@@ -6,6 +6,7 @@
   color: white;
   font-size: 18px;
   text-align: center;
+  padding-left: 100px !important;
 }
 
 .main-form {
@@ -15,8 +16,12 @@
   margin-top: 50px;
 }
 
-.main-form > * {
+.main-form>* {
   margin: 10px 0;
+}
+
+.inlineButton {
+  margin: 0;
 }
 
 .QR-modal {
