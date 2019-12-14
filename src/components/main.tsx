@@ -4,7 +4,6 @@ import BrightEthereumDeepLinkQR from "./qrGenerator";
 import { Button, Form, Input, Modal, ModalBody, Container } from 'reactstrap';
 
 const Main = () => {
-    // const [modal1, setModal1] = React.useState(false);
     const [input, updateInput] = useState("");
     const [showQR, toggleShowQR] = useState(false);
 
@@ -20,16 +19,10 @@ const Main = () => {
     return (
         <Form>
             <div className="main-form">
-                {
-                    !showQR &&
-                    <Input onInput={handleChange} id="ethereumAddress" spellCheck={false} autocomplete="off" className="main-input" placeholder="Enter your Ethereum address" />
-                }
-                {
-                    !showQR &&
-                    <Button onClick={() => toggleShowQR(!showQR)} size="lg" color="neutral" type="button" disabled={!input}>
-                        Submit
+                <Input onChange={handleChange} id="ethereumAddress" spellCheck={false} autoComplete="off" className="main-input" placeholder="Enter your Ethereum address" value={input} />
+                <Button onClick={() => toggleShowQR(!showQR)} size="lg" color="neutral" type="button" disabled={!input}>
+                    Submit
                     </Button>
-                }
                 {
                     showQR &&
                     <div>
