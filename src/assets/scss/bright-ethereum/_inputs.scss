@@ -313,3 +313,9 @@ textarea.form-control{
   height: 100%;
   z-index: 100;
 }
+#invalidAddress{
+  color: $danger-color;
+}
+#ethereumAddress{
+  font-size: 1.5vmax;
+}
