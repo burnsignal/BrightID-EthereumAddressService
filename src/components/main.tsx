@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BrightEthereumDeepLinkQR from "./qrGenerator";
 import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon } from 'reactstrap';
-import { assignEthereum } from '../util/utilJS'
+import { assignEthereum, convertENS } from '../util/utilJS'
 import MetaMask from '../assets/img/MetaMask.svg'
 
 const Main = () => {
@@ -9,8 +9,18 @@ const Main = () => {
     const [showQR, toggleShowQR] = useState(false);
     const [ethereum] = useState(() => assignEthereum());
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        updateInput(e.target.value);
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        const {value} = e.target
+        if(value.indexOf('.eth') != -1){
+          //check if ends with .eth to only resolve once
+          const address = await convertENS(value)
+          console.log('handleChange', address)
+          updateInput(address)
+        }
+        else
+          updateInput(e.target.value)
+
     };
 
     const resetState = () => {
@@ -22,7 +32,7 @@ const Main = () => {
         const result = await ethereum.enable()
         updateInput(result[0])
     }
-
+    
     return (
         <Form>
             <div className="main-form">
@@ -33,7 +43,7 @@ const Main = () => {
                         spellCheck={false}
                         autoComplete="off"
                         className="main-input"
-                        placeholder="Enter your Ethereum address"
+                        placeholder="Enter your Ethereum address or ENS Domain"
                         value={input}
                     />
                     <InputGroupAddon addonType="append">
