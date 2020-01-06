@@ -7,6 +7,7 @@ import MetaMask from '../assets/img/MetaMask.svg'
 const Main = () => {
     const [input, updateInput] = useState("");
     const [showQR, toggleShowQR] = useState(false);
+    const [resolvedAddress, updateResolved] = useState('');
     const [ethereum] = useState(() => assignEthereum());
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,10 +17,12 @@ const Main = () => {
           //check if ends with .eth to only resolve once
           const address = await convertENS(value)
           console.log('handleChange', address)
-          updateInput(address)
+          updateResolved(address)// our resolved address is in the hidden field to be used later
         }
-        else
-          updateInput(e.target.value)
+        else{//already an address we keep it in both visible input and hidden field
+          updateInput(value)
+          updateResolved(address)
+        }
 
     };
 
