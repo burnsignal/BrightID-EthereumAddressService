@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BrightEthereumDeepLinkQR from "./qrGenerator";
 import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon } from 'reactstrap';
 import { assignEthereum } from '../util/utilJS'
 import MetaMask from '../assets/img/MetaMask.svg'
+import Web3 from 'web3';
 
 const Main = () => {
     const [input, updateInput] = useState("");
     const [showQR, toggleShowQR] = useState(false);
+    const [validAddress, isValid] = useState(false)
     const [ethereum] = useState(() => assignEthereum());
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        updateInput(e.target.value);
+        updateInput(e.target.value)
     };
+
+    useEffect(() => {
+        isValid(Web3.utils.isAddress(input));
+    })
 
     const resetState = () => {
         updateInput("");
@@ -53,7 +59,7 @@ const Main = () => {
                     size="lg"
                     color="neutral"
                     type="button"
-                    disabled={!input}
+                    disabled={!input || !validAddress}
                 >
                     Submit
                 </Button>
