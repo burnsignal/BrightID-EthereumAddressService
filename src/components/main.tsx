@@ -4,11 +4,13 @@ import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGrou
 import { assignEthereum } from '../util/utilJS'
 import MetaMask from '../assets/img/MetaMask.svg'
 import Web3 from 'web3';
+import { mobileCheck } from "util/detectMobile";
 
 const Main = () => {
     const [input, updateInput] = useState("");
     const [showQR, toggleShowQR] = useState(false);
-    const [validAddress, isValid] = useState(false)
+    const [validAddress, isValid] = useState(false);
+    const [isMobile] = useState(mobileCheck())
     const [ethereum] = useState(() => assignEthereum());
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
