@@ -17,7 +17,7 @@ const Main = () => {
 
     useEffect(() => {
         isValid(Web3.utils.isAddress(input));
-    })
+    }, [input])
 
     const resetState = () => {
         updateInput("");
