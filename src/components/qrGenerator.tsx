@@ -1,12 +1,10 @@
 import React from "react";
+import { deepLinkPrefix } from "util/deepLink";
 const QRCode = require("qrcode.react");
 
 interface BrightEthereumDeepLinkQRProps {
   ethAddress: string;
 }
-
-const deepLinkPrefix =
-  "brightid://link-verification/http:%2f%2fnode.brightid.org/ethereum/";
 
 const BrightEthereumDeepLinkQR = ({
   ethAddress,

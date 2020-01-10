@@ -5,6 +5,7 @@ import { assignEthereum } from '../util/metamask'
 import MetaMask from '../assets/img/MetaMask.svg'
 import Web3 from 'web3';
 import { mobileCheck } from "util/detectMobile";
+import { deepLinkPrefix } from "util/deepLink";
 
 const Main = () => {
     const [input, updateInput] = useState("");
@@ -56,15 +57,28 @@ const Main = () => {
                         </Button>
                     </InputGroupAddon>
                 </InputGroup>
-                <Button
-                    onClick={() => toggleShowQR(!showQR)}
-                    size="lg"
-                    color="neutral"
-                    type="button"
-                    disabled={!input || !validAddress}
-                >
-                    Submit
-                </Button>
+                {
+                    isMobile ?
+                        <Button
+                            onClick={() => window.location.assign(deepLinkPrefix + `${input}`)}
+                            size="lg"
+                            color="neutral"
+                            type="button"
+                            disabled={!input || !validAddress}
+                        >
+                            Link BrightID
+                        </Button>
+                        :
+                        <Button
+                            onClick={() => toggleShowQR(!showQR)}
+                            size="lg"
+                            color="neutral"
+                            type="button"
+                            disabled={!input || !validAddress}
+                        >
+                            Submit
+                        </Button>
+                }
                 {
                     showQR &&
                     <div>
