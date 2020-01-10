@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BrightEthereumDeepLinkQR from "./qrGenerator";
 import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon } from 'reactstrap';
-import { assignEthereum } from '../util/utilJS'
+import { assignEthereum } from '../util/metamask'
 import MetaMask from '../assets/img/MetaMask.svg'
 import Web3 from 'web3';
 import { mobileCheck } from "util/detectMobile";
