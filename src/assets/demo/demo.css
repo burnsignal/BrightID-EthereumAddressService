@@ -21,7 +21,8 @@
 }
 
 .inlineButton {
-  margin: 0;
+  margin: auto !important;
+  height: 100% !important;
 }
 
 .QR-modal {
@@ -542,5 +543,25 @@
 @media screen and (max-width: 991px) {
   .section-navbars .navbar-collapse {
     display: none !important;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .main-input {
+    padding: 0px !important;
+  }
+
+  .main-form {
+    margin-top: 0;
+  }
+
+  h3 {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .main-input {
+    font-size: 14px;
   }
 }

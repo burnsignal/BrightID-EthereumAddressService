@@ -53,7 +53,7 @@ const Main = () => {
                             type="button"
                             disabled={!ethereum}
                         >
-                            <img src={MetaMask} />
+                            <img src={MetaMask} alt="Connect with Metamask" />
                         </Button>
                     </InputGroupAddon>
                 </InputGroup>
