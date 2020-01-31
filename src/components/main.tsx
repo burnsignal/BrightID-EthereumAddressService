@@ -10,6 +10,7 @@ import { deepLinkPrefix } from "util/deepLink";
 const Main = () => {
     const [input, updateInput] = useState('');
     const [showQR, toggleShowQR] = useState(false);
+    const [notSupported, toggleNotSupported] = useState(false);
     const [validAddress, isValid] = useState(false);
     const [isMobile] = useState(mobileCheck())
     const [ethereum] = useState(() => assignEthereum());
@@ -26,6 +27,7 @@ const Main = () => {
     const resetState = () => {
         updateInput("");
         toggleShowQR(false);
+        toggleNotSupported(false);
     }
 
     const enableEthereum = async () => {
@@ -34,6 +36,10 @@ const Main = () => {
     }
 
     const openAppOrAppStore = () => {
+        if (brightIdStoreLink === '') {
+            toggleNotSupported(true);
+            return;
+        }
         setTimeout(() => { window.location.assign(brightIdStoreLink) }, 250);
         window.location.assign(deepLinkPrefix + `${input}`)
     }
@@ -91,13 +97,39 @@ const Main = () => {
                 {
                     showQR &&
                     <div>
-                        <Modal onExit={resetState} className="QR-modal" isOpen={showQR} toggle={() => toggleShowQR(false)}>
+                        <Modal onExit={resetState} className="DefaultModal" isOpen={showQR} toggle={() => toggleShowQR(false)}>
                             <Container>
-                                <div className="QR-modal-content">
+                                <div className="DefaultModal-content">
                                     <ModalBody>
-                                        <div className="QR-modal-content">
+                                        <div className="DefaultModal-content">
                                             <p>Scan the QR code to connect your Ethereum address with your BrightID account</p>
                                             <BrightEthereumDeepLinkQR ethAddress={input} />
+                                        </div>
+                                    </ModalBody>
+                                    <div className="modal-footer">
+                                        <Button
+                                            size="lg"
+                                            color="warning"
+                                            type="button"
+                                            onClick={resetState}
+                                        >
+                                            Close
+                                </Button>
+                                    </div>
+                                </div>
+                            </Container>
+                        </Modal>
+                    </div>
+                }
+                {
+                    notSupported &&
+                    <div>
+                        <Modal onExit={resetState} className="DefaultModal" isOpen={notSupported} toggle={() => toggleNotSupported(false)}>
+                            <Container>
+                                <div className="DefaultModal-content">
+                                    <ModalBody>
+                                        <div className="DefaultModal-content">
+                                            <p>Unfortunately, the BrightID app is not available for your mobile operating system.</p>
                                         </div>
                                     </ModalBody>
                                     <div className="modal-footer">
