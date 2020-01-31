@@ -4,15 +4,16 @@ import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGrou
 import { assignEthereum } from '../util/metamask'
 import MetaMask from '../assets/img/MetaMask.svg'
 import Web3 from 'web3';
-import { mobileCheck } from "util/detectMobile";
+import { mobileCheck, androidOrIphoneLink } from "util/detectMobile";
 import { deepLinkPrefix } from "util/deepLink";
 
 const Main = () => {
-    const [input, updateInput] = useState("");
+    const [input, updateInput] = useState('');
     const [showQR, toggleShowQR] = useState(false);
     const [validAddress, isValid] = useState(false);
     const [isMobile] = useState(mobileCheck())
     const [ethereum] = useState(() => assignEthereum());
+    const [brightIdStoreLink] = useState(androidOrIphoneLink());
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         updateInput(e.target.value)
@@ -30,6 +31,11 @@ const Main = () => {
     const enableEthereum = async () => {
         const result = await ethereum.enable()
         updateInput(result[0])
+    }
+
+    const openAppOrAppStore = () => {
+        setTimeout(() => { window.location.assign(brightIdStoreLink) }, 250);
+        window.location.assign(deepLinkPrefix + `${input}`)
     }
 
     return (
@@ -59,15 +65,18 @@ const Main = () => {
                 </InputGroup>
                 {
                     isMobile ?
-                        <Button
-                            onClick={() => window.location.assign(deepLinkPrefix + `${input}`)}
-                            size="lg"
-                            color="neutral"
-                            type="button"
-                            disabled={!input || !validAddress}
-                        >
-                            Link BrightID
+                        (
+                            // getLink(androidOrIphoneLink()),
+                            <Button
+                                onClick={() => openAppOrAppStore()}
+                                size="lg"
+                                color="neutral"
+                                type="button"
+                                disabled={!input || !validAddress}
+                            >
+                                Link BrightID
                         </Button>
+                        )
                         :
                         <Button
                             onClick={() => toggleShowQR(!showQR)}
