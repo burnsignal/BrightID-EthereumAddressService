@@ -13,15 +13,17 @@ const Main = () => {
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 
         const {value} = e.target
+        updateInput(value)
+
         if(value.indexOf('.eth') != -1){
           //check if ends with .eth to only resolve once
           const address = await convertENS(value)
-          console.log('handleChange', address)
+          console.log('resolved ENS Address', address)
           updateResolved(address)// our resolved address is in the hidden field to be used later
         }
         else{//already an address we keep it in both visible input and hidden field
-          updateInput(value)
-          updateResolved(address)
+          
+            updateResolved(value)
         }
 
     };
