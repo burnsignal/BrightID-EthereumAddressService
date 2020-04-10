@@ -1,43 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BrightEthereumDeepLinkQR from "./qrGenerator";
-import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon } from 'reactstrap';
-import { assignEthereum, convertENS } from '../util/utilJS'
+import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon, FormFeedback } from 'reactstrap';
+import { assignEthereum, convertENS } from '../util/metamask'
 import MetaMask from '../assets/img/MetaMask.svg'
+import Web3 from 'web3';
+import { mobileCheck, androidOrIphoneLink } from "util/detectMobile";
+import { deepLinkPrefix } from "util/deepLink";
 
 const Main = () => {
-    const [input, updateInput] = useState("");
+    const [input, updateInput] = useState('');
+    const [resolvedENS, updateResolved] = useState('');
     const [showQR, toggleShowQR] = useState(false);
-    const [resolvedAddress, updateResolved] = useState('');
+    const [notSupported, toggleNotSupported] = useState(false);
+    const [validAddress, isValid] = useState(false);
+    const [isMobile] = useState(mobileCheck())
     const [ethereum] = useState(() => assignEthereum());
+    const [brightIdStoreLink] = useState(androidOrIphoneLink());
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-
+        updateInput(e.target.value)
         const {value} = e.target
         updateInput(value)
 
-        if(value.indexOf('.eth') != -1){
-          //check if ends with .eth to only resolve once
+        if( !value.includes('.eth') && Web3.utils.isAddress(value) ){
           const address = await convertENS(value)
           console.log('resolved ENS Address', address)
-          updateResolved(address)// our resolved address is in the hidden field to be used later
+          if(address && address.includes('.eth'))
+            updateResolved(address)
         }
-        else{//already an address we keep it in both visible input and hidden field
-          
-            updateResolved(value)
+        else if(value.includes('.eth')){
+          const address = await convertENS(value)
+          console.log('resolved ENS Address', address)
+          updateResolved(address)
+          if(address !== value) updateInput(address)
         }
 
     };
 
+    useEffect(() => {
+        isValid(Web3.utils.isAddress(input));
+    }, [input])
+
     const resetState = () => {
         updateInput("");
         toggleShowQR(false);
+        toggleNotSupported(false);
     }
 
     const enableEthereum = async () => {
         const result = await ethereum.enable()
         updateInput(result[0])
     }
-    
+
+    const openAppOrAppStore = () => {
+        if (brightIdStoreLink === '') {
+            toggleNotSupported(true);
+            return;
+        }
+        setTimeout(() => { window.location.assign(brightIdStoreLink) }, 250);
+        window.location.assign(deepLinkPrefix + `${input}`)
+    }
+
     return (
         <Form>
             <div className="main-form">
@@ -59,29 +82,72 @@ const Main = () => {
                             type="button"
                             disabled={!ethereum}
                         >
-                            <img src={MetaMask} />
+                            <img src={MetaMask} alt="Connect with Metamask" />
                         </Button>
                     </InputGroupAddon>
+                    {!validAddress ? <FormFeedback>You will not be able to see this</FormFeedback> : null}
                 </InputGroup>
-                <Button
-                    onClick={() => toggleShowQR(!showQR)}
-                    size="lg"
-                    color="neutral"
-                    type="button"
-                    disabled={!input}
-                >
-                    Submit
-                </Button>
+                {
+                    isMobile ?
+                        (
+                            // getLink(androidOrIphoneLink()),
+                            <Button
+                                onClick={() => openAppOrAppStore()}
+                                size="lg"
+                                color="neutral"
+                                type="button"
+                                disabled={!input || !validAddress}
+                            >
+                                Link BrightID
+                        </Button>
+                        )
+                        :
+                        <Button
+                            onClick={() => toggleShowQR(!showQR)}
+                            size="lg"
+                            color="neutral"
+                            type="button"
+                            disabled={!input || !validAddress}
+                        >
+                            Submit
+                        </Button>
+                }
                 {
                     showQR &&
                     <div>
-                        <Modal onExit={resetState} className="QR-modal" isOpen={showQR} toggle={() => toggleShowQR(false)}>
+                        <Modal onExit={resetState} className="DefaultModal" isOpen={showQR} toggle={() => toggleShowQR(false)}>
                             <Container>
-                                <div className="QR-modal-content">
+                                <div className="DefaultModal-content">
                                     <ModalBody>
-                                        <div className="QR-modal-content">
+                                        <div className="DefaultModal-content">
                                             <p>Scan the QR code to connect your Ethereum address with your BrightID account</p>
                                             <BrightEthereumDeepLinkQR ethAddress={input} />
+                                        </div>
+                                    </ModalBody>
+                                    <div className="modal-footer">
+                                        <Button
+                                            size="lg"
+                                            color="warning"
+                                            type="button"
+                                            onClick={resetState}
+                                        >
+                                            Close
+                                </Button>
+                                    </div>
+                                </div>
+                            </Container>
+                        </Modal>
+                    </div>
+                }
+                {
+                    notSupported &&
+                    <div>
+                        <Modal onExit={resetState} className="DefaultModal" isOpen={notSupported} toggle={() => toggleNotSupported(false)}>
+                            <Container>
+                                <div className="DefaultModal-content">
+                                    <ModalBody>
+                                        <div className="DefaultModal-content">
+                                            <p>Unfortunately, the BrightID app is not available for your mobile operating system.</p>
                                         </div>
                                     </ModalBody>
                                     <div className="modal-footer">
