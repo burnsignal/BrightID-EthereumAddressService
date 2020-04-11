@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BrightEthereumDeepLinkQR from "./qrGenerator";
 import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon, FormFeedback } from 'reactstrap';
-import { assignEthereum, convertENS } from '../util/metamask'
+import { assignEthereum } from '../util/metamask'
+import { convertENS } from '../util/ens'
 import MetaMask from '../assets/img/MetaMask.svg'
 import Web3 from 'web3';
 import { mobileCheck, androidOrIphoneLink } from "util/detectMobile";
@@ -9,7 +10,7 @@ import { deepLinkPrefix } from "util/deepLink";
 
 const Main = () => {
     const [input, updateInput] = useState('');
-    const [resolvedENS, updateResolved] = useState('');
+    const [address, updateAddress] = useState('');
     const [showQR, toggleShowQR] = useState(false);
     const [notSupported, toggleNotSupported] = useState(false);
     const [validAddress, isValid] = useState(false);
@@ -19,27 +20,26 @@ const Main = () => {
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         updateInput(e.target.value)
-        const {value} = e.target
-        updateInput(value)
-
-        if( !value.includes('.eth') && Web3.utils.isAddress(value) ){
-          const address = await convertENS(value)
-          console.log('resolved ENS Address', address)
-          if(address && address.includes('.eth'))
-            updateResolved(address)
-        }
-        else if(value.includes('.eth')){
-          const address = await convertENS(value)
-          console.log('resolved ENS Address', address)
-          updateResolved(address)
-          if(address !== value) updateInput(address)
-        }
-
     };
 
+    async function resolveENS() {
+        validateAndUpdateAddress(await convertENS(input))
+    }
+
     useEffect(() => {
-        isValid(Web3.utils.isAddress(input));
+        if (input.includes('.eth')) {
+            resolveENS();
+         } else validateAndUpdateAddress(input);
     }, [input])
+
+    const validateAndUpdateAddress = (input: string) => {
+        if (Web3.utils.isAddress(input)) {
+            isValid(true);
+            updateAddress(input);
+        } else {
+            isValid(false);
+        }
+    }
 
     const resetState = () => {
         updateInput("");
@@ -73,6 +73,7 @@ const Main = () => {
                         className="main-input"
                         placeholder="Enter your Ethereum address or ENS Domain"
                         value={input}
+                        invalid={!validAddress && !!input}
                     />
                     <InputGroupAddon addonType="append">
                         <Button
@@ -85,7 +86,9 @@ const Main = () => {
                             <img src={MetaMask} alt="Connect with Metamask" />
                         </Button>
                     </InputGroupAddon>
-                    {!validAddress ? <FormFeedback>You will not be able to see this</FormFeedback> : null}
+                    {!validAddress && <FormFeedback style={{color:'yellow'}} invalid>
+                      Uh oh! Looks like this Wallet Address is Invalid!
+                    </FormFeedback>}
                 </InputGroup>
                 {
                     isMobile ?
@@ -121,7 +124,7 @@ const Main = () => {
                                     <ModalBody>
                                         <div className="DefaultModal-content">
                                             <p>Scan the QR code to connect your Ethereum address with your BrightID account</p>
-                                            <BrightEthereumDeepLinkQR ethAddress={input} />
+                                            <BrightEthereumDeepLinkQR ethAddress={address} />
                                         </div>
                                     </ModalBody>
                                     <div className="modal-footer">
