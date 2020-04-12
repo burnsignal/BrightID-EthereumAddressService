@@ -102,7 +102,7 @@ const Main = () => {
                                 <div className="DefaultModal-content">
                                     <ModalBody>
                                         <div className="DefaultModal-content">
-                                            <p>Scan the QR code to connect your Ethereum address with your BrightID account</p>
+                                            <p>Send a <b>0 value</b> transaction to <b>brightid.burnsignal.eth</b> with the address you wish to verify, then scan the QR code to with a QR scanner (not the scanner in the BrightID app) to connect your Ethereum address with your BrightID account.</p>
                                             <BrightEthereumDeepLinkQR ethAddress={input} />
                                         </div>
                                     </ModalBody>
