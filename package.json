@@ -35,7 +35,7 @@
     "minify-sass": "node-sass src/assets/scss/bright-ethereum.scss src/assets/css/bright-ethereum.min.css --output-style compressed",
     "map-sass": "node-sass src/assets/scss/bright-ethereum.scss src/assets/css/bright-ethereum.css --source-map true",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build -b staging --add"
   },
   "eslintConfig": {
     "extends": "react-app"
