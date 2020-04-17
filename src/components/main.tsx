@@ -13,32 +13,45 @@ const Main = () => {
     const [address, updateAddress] = useState('');
     const [showQR, toggleShowQR] = useState(false);
     const [notSupported, toggleNotSupported] = useState(false);
-    const [validAddress, isValid] = useState(false);
+    const [invalidError, setInvalidError] = useState(false);
+    const [validAddress, isValid] = useState(true);
     const [isMobile] = useState(mobileCheck())
     const [ethereum] = useState(() => assignEthereum());
     const [brightIdStoreLink] = useState(androidOrIphoneLink());
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         updateInput(e.target.value)
+        setInvalidError(false)
     };
-
-    async function resolveENS() {
-        validateAndUpdateAddress(await convertENS(input))
-    }
 
     useEffect(() => {
         if (input.includes('.eth')) {
+            async function resolveENS() {
+                validateAndUpdateAddress(await convertENS(input))
+            }
             resolveENS();
          } else validateAndUpdateAddress(input);
     }, [input])
 
     const validateAndUpdateAddress = (input: string) => {
-        if (Web3.utils.isAddress(input)) {
+        if ( Web3.utils.isAddress(input) ) {
             isValid(true);
             updateAddress(input);
         } else {
             isValid(false);
         }
+    }
+
+    const submitAddress = () => {
+
+      if(validAddress)
+        {
+          toggleShowQR(true);
+          setInvalidError(false)
+        }
+      else
+        setInvalidError(true)
+      console.log('invalidError',invalidError)
     }
 
     const resetState = () => {
@@ -64,7 +77,7 @@ const Main = () => {
     return (
         <Form>
             <div className="main-form">
-                <InputGroup>
+                <InputGroup style={{paddingBottom: invalidError  ? 0 : 20}}>
                     <Input
                         onChange={handleChange}
                         id="ethereumAddress"
@@ -73,9 +86,9 @@ const Main = () => {
                         className="main-input"
                         placeholder="Enter your Ethereum address or ENS Domain"
                         value={input}
-                        invalid={!validAddress && !!input}
+                        invalid={invalidError}
                     />
-                    <InputGroupAddon addonType="append">
+                    <InputGroupAddon addonType="append" >
                         <Button
                             className="inlineButton"
                             onClick={() => enableEthereum()}
@@ -86,9 +99,9 @@ const Main = () => {
                             <img src={MetaMask} alt="Connect with Metamask" />
                         </Button>
                     </InputGroupAddon>
-                    {!validAddress && <FormFeedback style={{color:'yellow'}} invalid>
+                    <FormFeedback id="invalidAddress">
                       Uh oh! Looks like this Wallet Address is Invalid!
-                    </FormFeedback>}
+                    </FormFeedback>
                 </InputGroup>
                 {
                     isMobile ?
@@ -106,11 +119,11 @@ const Main = () => {
                         )
                         :
                         <Button
-                            onClick={() => toggleShowQR(!showQR)}
+                            onClick={submitAddress}
                             size="lg"
                             color="neutral"
                             type="button"
-                            disabled={!input || !validAddress}
+                            disabled={!input}
                         >
                             Submit
                         </Button>
