@@ -5,12 +5,17 @@ import { assignEthereum } from '../util/metamask'
 import { convertENS } from '../util/ens'
 import MetaMask from '../assets/img/MetaMask.svg'
 import Web3 from 'web3';
+import { Contract } from 'web3-eth-contract';
 import { mobileCheck, androidOrIphoneLink } from "util/detectMobile";
+import getWeb3 from "util/web3";
 import { deepLinkPrefix } from "util/deepLink";
+import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "util/constants";
 
 const Main = () => {
-    const [input, updateInput] = useState('');
     const [address, updateAddress] = useState('');
+    const [accounts, setAccounts] = useState<string[]>([]);
+    const [contractInstance, setInstance] = useState<Contract>()
+    const [input, updateInput] = useState(accounts[0]);
     const [showQR, toggleShowQR] = useState(false);
     const [notSupported, toggleNotSupported] = useState(false);
     const [invalidError, setInvalidError] = useState(false);
@@ -19,7 +24,48 @@ const Main = () => {
     const [ethereum] = useState(() => assignEthereum());
     const [brightIdStoreLink] = useState(androidOrIphoneLink());
 
-    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const initWeb3 = async() => {
+        try {
+          const web3 = await getWeb3()
+          await configureWeb3(web3)
+    
+          // @ts-ignore
+          window.ethereum.on('accountsChanged',
+          () => configureWeb3(web3))
+    
+        } catch(e) {
+          alert('Web3 login could not be detected')
+        }
+    }
+
+    const configureWeb3 = async(web3: Web3) => {
+        setAccounts(await web3.eth.getAccounts());
+        updateInput(accounts[0]);
+        setInstance(new web3.eth.Contract(SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS));
+      }
+
+    const sponsor = async () => {
+        if (contractInstance !== undefined) {
+            await contractInstance.methods.sponsor(accounts[0])
+            .send({
+                from: accounts[0]
+            })
+            .on('transactionHash', (hash: any) => {
+                console.log(hash)
+            })
+            .on('confirmation', (confirmationNumber: any, receipt: any) => {
+                console.log(confirmationNumber)
+            })
+            .on('receipt', (receipt: any) => {
+                console.log(receipt);
+            })
+            .on('error', (error: any, receipt: any) => {
+                console.log(error);
+            })
+            }
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         updateInput(e.target.value)
     };
 
@@ -98,6 +144,22 @@ const Main = () => {
                       Looks like this wallet address is invalid
                     </FormFeedback>
                 </InputGroup>
+                <Button
+                    onClick={() => initWeb3()}
+                    size="lg"
+                    color="neutral"
+                    type="button"
+                >
+                    Connect with Ethereum
+                </Button>
+                <Button
+                    onClick={() => sponsor()}
+                    size="lg"
+                    color="neutral"
+                    type="button"
+                >
+                    Sponsor
+                </Button>
                 {
                     // TODO: Unify button functionality
                     isMobile ?
