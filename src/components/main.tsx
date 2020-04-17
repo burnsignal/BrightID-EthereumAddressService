@@ -21,7 +21,6 @@ const Main = () => {
 
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         updateInput(e.target.value)
-        setInvalidError(false)
     };
 
     useEffect(() => {
@@ -31,6 +30,7 @@ const Main = () => {
             }
             resolveENS();
          } else validateAndUpdateAddress(input);
+         setInvalidError(false)
     }, [input])
 
     const validateAndUpdateAddress = (input: string) => {
@@ -43,16 +43,10 @@ const Main = () => {
     }
 
     const submitAddress = () => {
-
-      if(validAddress)
-        {
-          toggleShowQR(true);
-          setInvalidError(false)
-        }
-      else
-        setInvalidError(true)
-      console.log('invalidError',invalidError)
-    }
+        if(validAddress && !isMobile) toggleShowQR(true);
+        else if (validAddress && isMobile) openAppOrAppStore();
+        else setInvalidError(true)
+      }
 
     const resetState = () => {
         updateInput("");
@@ -100,7 +94,7 @@ const Main = () => {
                         </Button>
                     </InputGroupAddon>
                     <FormFeedback id="invalidAddress">
-                      Uh oh! Looks like this Wallet Address is Invalid!
+                      Looks like this wallet address is invalid
                     </FormFeedback>
                 </InputGroup>
                 {
@@ -108,11 +102,11 @@ const Main = () => {
                         (
                             // getLink(androidOrIphoneLink()),
                             <Button
-                                onClick={() => openAppOrAppStore()}
+                                onClick={submitAddress}
                                 size="lg"
                                 color="neutral"
                                 type="button"
-                                disabled={!input || !validAddress}
+                                disabled={!input}
                             >
                                 Link BrightID
                         </Button>

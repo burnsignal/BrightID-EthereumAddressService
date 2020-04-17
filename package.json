@@ -11,6 +11,7 @@
     "@types/reactstrap": "^8.0.6",
     "clean": "^4.0.2",
     "ethjs-ens": "^2.0.1",
+    "ethjs-provider-http": "^0.1.6",
     "gh-pages": "^2.1.1",
     "moment": "2.24.0",
     "node-sass": "4.12.0",
