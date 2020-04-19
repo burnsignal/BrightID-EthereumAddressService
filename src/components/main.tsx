@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import BrightEthereumDeepLinkQR from "./qrGenerator";
-import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon } from 'reactstrap';
+import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon, FormFeedback } from 'reactstrap';
 import { assignEthereum } from '../util/metamask'
+import { convertENS } from '../util/ens'
 import MetaMask from '../assets/img/MetaMask.svg'
 import Web3 from 'web3';
 import { mobileCheck, androidOrIphoneLink } from "util/detectMobile";
@@ -9,20 +10,44 @@ import { deepLinkPrefix } from "util/deepLink";
 
 const Main = () => {
     const [input, updateInput] = useState('');
+    const [address, updateAddress] = useState('');
     const [showQR, toggleShowQR] = useState(false);
     const [notSupported, toggleNotSupported] = useState(false);
-    const [validAddress, isValid] = useState(false);
+    const [invalidError, setInvalidError] = useState(false);
+    const [validAddress, isValid] = useState(true);
     const [isMobile] = useState(mobileCheck())
     const [ethereum] = useState(() => assignEthereum());
     const [brightIdStoreLink] = useState(androidOrIphoneLink());
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         updateInput(e.target.value)
     };
 
     useEffect(() => {
-        isValid(Web3.utils.isAddress(input));
+        if (input.includes('.eth')) {
+            async function resolveENS() {
+                validateAndUpdateAddress(await convertENS(input))
+            }
+            resolveENS();
+         } else validateAndUpdateAddress(input);
+         setInvalidError(false)
     }, [input])
+
+    const validateAndUpdateAddress = (input: string) => {
+        if ( Web3.utils.isAddress(input) ) {
+            isValid(true);
+            updateAddress(input);
+        } else {
+            isValid(false);
+        }
+    }
+
+    const submitAddress = (e: React.FormEvent) => {
+        e.preventDefault();
+        if(validAddress && !isMobile) toggleShowQR(true);
+        else if (validAddress && isMobile) openAppOrAppStore();
+        else setInvalidError(true)
+    }
 
     const resetState = () => {
         updateInput("");
@@ -41,23 +66,24 @@ const Main = () => {
             return;
         }
         setTimeout(() => { window.location.assign(brightIdStoreLink) }, 250);
-        window.location.assign(deepLinkPrefix + `${input}`)
+        window.location.assign(deepLinkPrefix + `${address}`)
     }
 
     return (
         <Form>
             <div className="main-form">
-                <InputGroup>
+                <InputGroup style={{paddingBottom: invalidError  ? 0 : 20}}>
                     <Input
                         onChange={handleChange}
                         id="ethereumAddress"
                         spellCheck={false}
                         autoComplete="off"
                         className="main-input"
-                        placeholder="Enter your Ethereum address"
+                        placeholder="Enter your Ethereum address or ENS Domain"
                         value={input}
+                        invalid={invalidError}
                     />
-                    <InputGroupAddon addonType="append">
+                    <InputGroupAddon addonType="append" >
                         <Button
                             className="inlineButton"
                             onClick={() => enableEthereum()}
@@ -68,28 +94,31 @@ const Main = () => {
                             <img src={MetaMask} alt="Connect with Metamask" />
                         </Button>
                     </InputGroupAddon>
+                    <FormFeedback id="invalidAddress">
+                      Looks like this wallet address is invalid
+                    </FormFeedback>
                 </InputGroup>
                 {
+                    // TODO: Unify button functionality
                     isMobile ?
                         (
-                            // getLink(androidOrIphoneLink()),
                             <Button
-                                onClick={() => openAppOrAppStore()}
+                                onClick={submitAddress}
                                 size="lg"
                                 color="neutral"
-                                type="button"
-                                disabled={!input || !validAddress}
+                                type="submit"
+                                disabled={!input}
                             >
                                 Link BrightID
-                        </Button>
+                            </Button>
                         )
                         :
                         <Button
-                            onClick={() => toggleShowQR(!showQR)}
+                            onClick={submitAddress}
                             size="lg"
                             color="neutral"
-                            type="button"
-                            disabled={!input || !validAddress}
+                            type="submit"
+                            disabled={!input}
                         >
                             Submit
                         </Button>
@@ -103,7 +132,7 @@ const Main = () => {
                                     <ModalBody>
                                         <div className="DefaultModal-content">
                                             <p>Scan the QR code to connect your Ethereum address with your BrightID account</p>
-                                            <BrightEthereumDeepLinkQR ethAddress={input} />
+                                            <BrightEthereumDeepLinkQR ethAddress={address} />
                                         </div>
                                     </ModalBody>
                                     <div className="modal-footer">
