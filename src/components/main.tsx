@@ -65,7 +65,7 @@ const Main = () => {
             return;
         }
         setTimeout(() => { window.location.assign(brightIdStoreLink) }, 250);
-        window.location.assign(deepLinkPrefix + `${input}`)
+        window.location.assign(deepLinkPrefix + `${address}`)
     }
 
     return (
@@ -98,25 +98,25 @@ const Main = () => {
                     </FormFeedback>
                 </InputGroup>
                 {
+                    // TODO: Unify button functionality
                     isMobile ?
                         (
-                            // getLink(androidOrIphoneLink()),
                             <Button
                                 onClick={submitAddress}
                                 size="lg"
                                 color="neutral"
-                                type="button"
+                                type="submit"
                                 disabled={!input}
                             >
                                 Link BrightID
-                        </Button>
+                            </Button>
                         )
                         :
                         <Button
                             onClick={submitAddress}
                             size="lg"
                             color="neutral"
-                            type="button"
+                            type="submit"
                             disabled={!input}
                         >
                             Submit
