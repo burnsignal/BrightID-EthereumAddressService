@@ -42,11 +42,12 @@ const Main = () => {
         }
     }
 
-    const submitAddress = () => {
+    const submitAddress = (e: React.FormEvent) => {
+        e.preventDefault();
         if(validAddress && !isMobile) toggleShowQR(true);
         else if (validAddress && isMobile) openAppOrAppStore();
         else setInvalidError(true)
-      }
+    }
 
     const resetState = () => {
         updateInput("");
