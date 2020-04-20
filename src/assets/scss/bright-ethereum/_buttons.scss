@@ -14,7 +14,7 @@
 
     &:hover,
     &:focus{
-        @include opacity(1);
+        @include opacity(0.9);
         outline: 0 !important;
     }
     &:active,
@@ -129,6 +129,9 @@
 
 .btn-lg{
    @include btn-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $border-radius-large);
+}
+.btn-xl{
+   @include btn-size($padding-xl-vertical, $padding-large-horizontal, $font-size-large, $border-radius-large);
 }
 .btn-sm{
     @include btn-size($padding-small-vertical, $padding-small-horizontal, $font-size-base, $border-radius-small);

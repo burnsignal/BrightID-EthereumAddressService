@@ -36,7 +36,7 @@ function IndexHeader() {
         <Container>
           <div className="content-center brand">
             <h1 className="h1-seo">Bright Ethereum</h1>
-            <h3>Connect your Ethereum address to a global, unique identity network</h3>
+            <h4>Choose a method to connect your Ethereum address to <strong>BrightID</strong>, a global, unique identity network:</h4>
             <Main />
           </div>
         </Container>

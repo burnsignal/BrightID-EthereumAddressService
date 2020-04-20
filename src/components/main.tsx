@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import BrightEthereumDeepLinkQR from "./qrGenerator";
-import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon, FormFeedback } from 'reactstrap';
+import { Button, Form, Input, Modal, ModalBody, Container, FormFeedback } from 'reactstrap';
 import { assignEthereum } from '../util/metamask'
 import { convertENS } from '../util/ens'
-import MetaMask from '../assets/img/MetaMask.svg'
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 import { mobileCheck, androidOrIphoneLink } from "util/detectMobile";
 import getWeb3 from "util/web3";
 import { deepLinkPrefix } from "util/deepLink";
 import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "util/constants";
+import web3logo from '../assets/img/web3js.jpg'
 
 const Main = () => {
     const [address, updateAddress] = useState('');
@@ -70,7 +70,7 @@ const Main = () => {
     };
 
     useEffect(() => {
-        if (input.includes('.eth')) {
+        if (input && input.includes('.eth')) {
             async function resolveENS() {
                 validateAndUpdateAddress(await convertENS(input))
             }
@@ -118,49 +118,67 @@ const Main = () => {
     return (
         <Form>
             <div className="main-form">
-                <InputGroup style={{paddingBottom: invalidError  ? 0 : 20}}>
-                    <Input
-                        onChange={handleChange}
-                        id="ethereumAddress"
-                        spellCheck={false}
-                        autoComplete="off"
-                        className="main-input"
-                        placeholder="Enter your Ethereum address or ENS Domain"
-                        value={input}
-                        invalid={invalidError}
-                    />
-                    <InputGroupAddon addonType="append" >
-                        <Button
-                            className="inlineButton"
-                            onClick={() => enableEthereum()}
-                            color="neutral"
-                            type="button"
-                            disabled={!ethereum}
-                        >
-                            <img src={MetaMask} alt="Connect with Metamask" />
-                        </Button>
-                    </InputGroupAddon>
-                    <FormFeedback id="invalidAddress">
-                      Looks like this wallet address is invalid
-                    </FormFeedback>
-                </InputGroup>
-                <Button
-                    onClick={() => initWeb3()}
-                    size="lg"
-                    color="neutral"
-                    type="button"
-                >
-                    Connect with Ethereum
-                </Button>
-                <Button
+                {/* <Input
+                    onChange={handleChange}
+                    id="ethereumAddress"
+                    spellCheck={false}
+                    autoComplete="off"
+                    className="main-input"
+                    placeholder="Enter your Ethereum address or ENS Domain"
+                    value={input}
+                    invalid={invalidError}
+                />
+                <FormFeedback id="invalidAddress">
+                    Looks like this wallet address is invalid
+                </FormFeedback> */}
+                <div className="btn-selection">
+                    <Button
+                        onClick={() => initWeb3()}
+                        // size=""
+                        color="neutral"
+                        type="button"
+                    >
+                        <div>
+                            <div className="selection-header">
+                                <img src={web3logo} alt=""/>
+                                <h3>
+                                Ethereum wallet 
+                                </h3>
+                            </div>
+                            <p>
+                               Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
+                            </p>
+                            <ul>
+                            <li>Metamask</li>
+                            <li>WalletConnect</li>
+                            <li>Authereum</li>
+
+                            </ul>
+                        </div>
+                        
+                    </Button>
+                    <Button
+                        onClick={() => initWeb3()}
+                        // size="lg"
+                        color="neutral"
+                        type="button"
+                    >
+                        <div>
+                            <h3>
+                            Manually
+                            </h3>
+                        </div>
+                    </Button>
+                </div>
+                {/* <Button
                     onClick={() => sponsor()}
                     size="lg"
                     color="neutral"
                     type="button"
                 >
                     Sponsor
-                </Button>
-                {
+                </Button> */}
+                {/* {
                     // TODO: Unify button functionality
                     isMobile ?
                         (
@@ -184,7 +202,7 @@ const Main = () => {
                         >
                             Submit
                         </Button>
-                }
+                } */}
                 {
                     showQR &&
                     <div>
