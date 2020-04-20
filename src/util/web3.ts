@@ -22,7 +22,13 @@ const getWeb3 = (): Promise<Web3> => (
       try {
         const web3Modal = new Web3Modal({
           network: 'mainnet',
-          theme: "dark",
+          theme: {
+            background: "#214564",
+            main: "#dd866c",
+            secondary: "#FFFFFF",
+            border: "rgba(195, 195, 195, 0.14)",
+            hover: "rgb(39, 49, 56)"
+          },
           providerOptions
         })
   
