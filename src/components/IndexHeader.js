@@ -5,6 +5,7 @@ import React from "react";
 import { Container } from "reactstrap";
 import Main from "components/main";
 // core components
+import TransparentFooter from "components/TransparentFooter.js";
 
 function IndexHeader() {
   let pageHeader = React.createRef();
@@ -40,6 +41,7 @@ function IndexHeader() {
             <Main />
           </div>
         </Container>
+        <TransparentFooter />
       </div>
     </>
   );

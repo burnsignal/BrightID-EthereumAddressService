@@ -14,8 +14,8 @@ function IndexNavbar() {
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
-        document.documentElement.scrollTop > 50 ||
-        document.body.scrollTop > 50
+        document.documentElement.scrollTop > 400 ||
+        document.body.scrollTop > 400
       ) {
         setNavbarColor("");
       } else if (

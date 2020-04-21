@@ -3,7 +3,7 @@ import React from "react";
 // core components
 import IndexNavbar from "components/IndexNavbar.js";
 import IndexHeader from "components/IndexHeader.js";
-import TransparentFooter from "components/TransparentFooter.js";
+// import TransparentFooter from "components/TransparentFooter.js";
 
 function Index() {
   React.useEffect(() => {
@@ -20,12 +20,7 @@ function Index() {
   return (
     <>
       <IndexNavbar />
-      <div className="page-header">
-        <IndexHeader />
-        <div className="main">
-        </div>
-        <TransparentFooter />
-      </div>
+      <IndexHeader />
     </>
   );
 }

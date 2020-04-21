@@ -67,10 +67,15 @@
       text-align: center;
       color: #FFFFFF;
       padding: 0 15px;
-      width: 90%;
+      width: 80%;
       max-width: 880px;
-
     }
+
+    @media screen and (max-width: 991px) {
+        .content-center {
+            width: 100%;
+        }
+      }
 
     footer{
         position: absolute;

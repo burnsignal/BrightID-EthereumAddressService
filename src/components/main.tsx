@@ -132,42 +132,43 @@ const Main = () => {
                     Looks like this wallet address is invalid
                 </FormFeedback> */}
                 <div className="btn-selection">
-                    <Button
+                    <Button className="btn"
                         onClick={() => initWeb3()}
                         // size=""
                         color="neutral"
                         type="button"
                     >
-                        <div>
+                        <div className="btn-inner-container">
                             <div className="selection-header">
                                 <img src={web3logo} alt=""/>
-                                <h3>
-                                Ethereum wallet 
-                                </h3>
+                                <h3>Ethereum wallet</h3>
                             </div>
                             <p>
                                Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
                             </p>
-                            <ul>
-                            <li>Metamask</li>
-                            <li>WalletConnect</li>
-                            <li>Authereum</li>
-
-                            </ul>
-                        </div>
-                        
+                            <p className="small-caps">Metamask, WalletConnect, Authereum</p>
+                        </div>   
                     </Button>
-                    <Button
+                    <Button className="btn"
                         onClick={() => initWeb3()}
-                        // size="lg"
+                        // size=""
                         color="neutral"
                         type="button"
                     >
-                        <div>
-                            <h3>
-                            Manually
-                            </h3>
-                        </div>
+                        <div className="btn-inner-container">
+                            <div className="selection-header">
+                                <img src={web3logo} alt=""/>
+                                <div className="selection-title">
+                                    <h3>Manually</h3>
+                                    <p>— OR —</p>
+                                    <h3>ENS</h3>
+                                </div>
+                            </div>
+                            <p>Enter your ENS domain or paste your Ethereum address</p>
+                            <p>
+                               Manually sponsor yourself via the BrightID contract
+                            </p>
+                        </div>   
                     </Button>
                 </div>
                 {/* <Button
