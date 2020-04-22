@@ -19,28 +19,46 @@ const Main = () => {
     const [contractInstance, setInstance] = useState<Contract>()
     const [input, updateInput] = useState(accounts[0]);
     const [showQR, toggleShowQR] = useState(false);
+    // const [showEthModal, toggleShowEthModal] = useState(false);
     const [notSupported, toggleNotSupported] = useState(false);
     const [invalidError, setInvalidError] = useState(false);
     const [validAddress, isValid] = useState(true);
     const [isMobile] = useState(mobileCheck())
-    const [ethereum] = useState(() => assignEthereum());
     const [brightIdStoreLink] = useState(androidOrIphoneLink());
     
+    const [userAuthenticated, setUserAuthenticated] = useState(false);
+    // const [addressConfirmed, setAddressConfirmed] = useState(false);
+    const [txSubmitted, setTxSubmitted] = useState(false);
     const [authenticated, setAuthenticated] = useState<string[]>([]);
 
     useEffect(() => {
         updateAddress(accounts[0]);
         if (accounts[0] && !checkAuthenticated(accounts[0], authenticated)) {
+            setUserAuthenticated(false);
             console.log('not authenticated')
-            sponsor();
+            // sponsor();
         } 
         else if (accounts[0] && checkAuthenticated(accounts[0], authenticated)) {
+            setUserAuthenticated(true);
             console.log('authenticated')
-            sponsor();
+            // sponsor();
         }
     }, [accounts, authenticated])
 
-    const initWeb3 = async() => {
+    // useEffect(() => {
+    //     await configureWeb3(web3);
+    // }, [web3])
+
+    const maybeInitWeb3 = async () => {
+        if (!contractInstance || accounts.length === 0) {
+            await initWeb3();
+            toggleShowQR(true);
+        } else {
+            toggleShowQR(true);
+        }
+    } 
+
+    const initWeb3 = async () => {
         try {
           const web3 = await getWeb3()
           await configureWeb3(web3)
@@ -69,6 +87,7 @@ const Main = () => {
                 from: accounts[0]
             })
             .on('transactionHash', (hash: any) => {
+                setTxSubmitted(true);
                 console.log(hash)
             })
             .on('confirmation', (confirmationNumber: any, receipt: any) => {
@@ -119,10 +138,10 @@ const Main = () => {
         toggleNotSupported(false);
     }
 
-    const enableEthereum = async () => {
-        const result = await ethereum.enable()
-        updateInput(result[0])
-    }
+    // const enableEthereum = async () => {
+    //     const result = await ethereum.enable()
+    //     updateInput(result[0])
+    // }
 
     const openAppOrAppStore = () => {
         if (brightIdStoreLink === '') {
@@ -151,7 +170,7 @@ const Main = () => {
                 </FormFeedback> */}
                 <div className="btn-selection">
                     <Button className="btn"
-                        onClick={() => initWeb3()}
+                        onClick={maybeInitWeb3}
                         // size=""
                         color="neutral"
                         type="button"
@@ -191,14 +210,6 @@ const Main = () => {
                         </div>   
                     </Button>
                 </div>
-                {/* <Button
-                    onClick={() => sponsor()}
-                    size="lg"
-                    color="neutral"
-                    type="button"
-                >
-                    Sponsor
-                </Button> */}
                 {/* {
                     // TODO: Unify button functionality
                     isMobile ?
@@ -232,8 +243,26 @@ const Main = () => {
                                 <div className="DefaultModal-content">
                                     <ModalBody>
                                         <div className="DefaultModal-content">
-                                            <p>Scan the QR code to connect your Ethereum address with your BrightID account</p>
-                                            <BrightEthereumDeepLinkQR ethAddress={address} />
+                                            {!userAuthenticated && <p>Your address: <strong>{address}</strong> is already verified with BrightID.</p>}
+                                            {userAuthenticated && !txSubmitted &&
+                                                    <div>
+                                                        <p>Is this the address you would like to link with BrightID? <br/><strong>{address}</strong></p>
+                                                        <Button
+                                                            onClick={() => sponsor()}
+                                                            size="lg"
+                                                            color="primary"
+                                                            type="button"
+                                                        >
+                                                            Verify
+                                                        </Button>
+                                                    </div>
+                                            }
+                                            {txSubmitted && 
+                                            <div>
+                                                <p>Scan the QR code to connect your Ethereum address with your BrightID account</p>
+                                                <BrightEthereumDeepLinkQR ethAddress={address} />
+                                            </div> 
+                                            }
                                         </div>
                                     </ModalBody>
                                     <div className="modal-footer">
