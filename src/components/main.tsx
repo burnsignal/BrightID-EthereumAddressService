@@ -10,6 +10,7 @@ import getWeb3 from "util/web3";
 import { deepLinkPrefix } from "util/deepLink";
 import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "util/constants";
 import web3logo from '../assets/img/web3js.jpg'
+import manualInput from '../assets/img/manual-input.png'
 
 const Main = () => {
     const [address, updateAddress] = useState('');
@@ -147,7 +148,8 @@ const Main = () => {
                                Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
                             </p>
                             <p className="small-caps">Metamask, WalletConnect, Authereum</p>
-                        </div>   
+                            <p id="recommended">Recommended</p>
+                        </div>
                     </Button>
                     <Button className="btn"
                         onClick={() => initWeb3()}
@@ -157,7 +159,7 @@ const Main = () => {
                     >
                         <div className="btn-inner-container">
                             <div className="selection-header">
-                                <img src={web3logo} alt=""/>
+                                <img src={manualInput} alt=""/>
                                 <div className="selection-title">
                                     <h3>Manually</h3>
                                     <p>— OR —</p>
@@ -168,6 +170,7 @@ const Main = () => {
                             <p>
                                Manually sponsor yourself via the BrightID contract
                             </p>
+                            <p id="advanced">Advanced</p>
                         </div>   
                     </Button>
                 </div>

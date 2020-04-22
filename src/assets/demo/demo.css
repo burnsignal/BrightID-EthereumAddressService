@@ -582,17 +582,29 @@
   font-weight: 400;
   text-align: left;
   margin-bottom: 10px;
+}
 
+.btn-selection p:last-child {
+  text-align: center;
+}
+
+#recommended {
+  color: rgba(24, 206, 15, .7);
+}
+
+#advanced {
+  color: rgba(255, 54, 54, .8);
 }
 
 .btn-selection .small-caps {
   font-size: 1.1em;
   font-variant: small-caps;
+  margin-bottom: 10px;
 }
 
 .btn-selection .btn-inner-container {
   width: 240px;
-  height: 180px;
+  height: 210px;
 }
 
 @media screen and (max-width: 991px) {
