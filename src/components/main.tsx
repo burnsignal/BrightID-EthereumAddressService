@@ -6,9 +6,10 @@ import { convertENS } from '../util/ens'
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 import { mobileCheck, androidOrIphoneLink } from "util/detectMobile";
-import getWeb3 from "util/web3";
+import { getWeb3 } from "util/web3";
 import { deepLinkPrefix } from "util/deepLink";
 import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "util/constants";
+import { getAuthenticated, checkAuthenticated } from "util/brightID"
 import web3logo from '../assets/img/web3js.jpg'
 import manualInput from '../assets/img/manual-input.png'
 
@@ -24,6 +25,20 @@ const Main = () => {
     const [isMobile] = useState(mobileCheck())
     const [ethereum] = useState(() => assignEthereum());
     const [brightIdStoreLink] = useState(androidOrIphoneLink());
+    
+    const [authenticated, setAuthenticated] = useState<string[]>([]);
+
+    useEffect(() => {
+        updateAddress(accounts[0]);
+        if (accounts[0] && !checkAuthenticated(accounts[0], authenticated)) {
+            console.log('not authenticated')
+            sponsor();
+        } 
+        else if (accounts[0] && checkAuthenticated(accounts[0], authenticated)) {
+            console.log('authenticated')
+            sponsor();
+        }
+    }, [accounts, authenticated])
 
     const initWeb3 = async() => {
         try {
@@ -32,7 +47,7 @@ const Main = () => {
     
           // @ts-ignore
           window.ethereum.on('accountsChanged',
-          () => configureWeb3(web3))
+          async () => await configureWeb3(web3))
     
         } catch(e) {
           alert('Web3 login could not be detected')
@@ -40,13 +55,15 @@ const Main = () => {
     }
 
     const configureWeb3 = async(web3: Web3) => {
-        setAccounts(await web3.eth.getAccounts());
-        updateInput(accounts[0]);
         setInstance(new web3.eth.Contract(SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS));
+        setAuthenticated(await getAuthenticated());
+        setAccounts(await web3.eth.getAccounts());
       }
 
     const sponsor = async () => {
+        console.log('sponsoring')
         if (contractInstance !== undefined) {
+            console.log('sponsoring 2')
             await contractInstance.methods.sponsor(accounts[0])
             .send({
                 from: accounts[0]
@@ -152,7 +169,7 @@ const Main = () => {
                         </div>
                     </Button>
                     <Button className="btn"
-                        onClick={() => initWeb3()}
+                        onClick={() => sponsor()}
                         // size=""
                         color="neutral"
                         type="button"

@@ -3,6 +3,8 @@ import Web3Modal from "web3modal";
 // @ts-ignore
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Authereum from 'authereum';
+// @ts-ignore
+// import { createKeccakHash } from 'keccak';
 
 const providerOptions = {
   walletconnect: {
@@ -17,7 +19,7 @@ const providerOptions = {
   },
 };
 
-const getWeb3 = (): Promise<Web3> => (
+export const getWeb3 = (): Promise<Web3> => (
     new Promise(async(resolve, reject) => {
       try {
         const web3Modal = new Web3Modal({
@@ -41,5 +43,19 @@ const getWeb3 = (): Promise<Web3> => (
       }
     })
   );
-  
-  export default getWeb3;
+
+// export const toChecksumAddress = (address: string) => {
+//   address = address.toLowerCase().replace('0x', '')
+//   let hash = createKeccakHash('keccak256').update(address).digest('hex')
+//   let ret = '0x'
+
+//   for (let i = 0; i < address.length; i++) {
+//     if (parseInt(hash[i], 16) >= 8) {
+//       ret += address[i].toUpperCase()
+//     } else {
+//       ret += address[i]
+//     }
+//   }
+
+//   return ret
+// }

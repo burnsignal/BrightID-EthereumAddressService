@@ -1,5 +1,7 @@
 import { AbiItem } from 'web3-utils'
 
+
+export const BRIGHTID_ENDPOINT = 'https://sp.brightid.org/node/v4/verifications/ethereum';
 export const SPONSOR_CONTRACT_ADDRESS = '0xdCDaDE0E1ecBFEb56cEC05DBe4d04E663b7885ec';
 export const SPONSOR_CONTRACT_ABI: AbiItem[] = [
   {

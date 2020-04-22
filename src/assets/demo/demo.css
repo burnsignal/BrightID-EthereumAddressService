@@ -610,7 +610,7 @@
 @media screen and (max-width: 991px) {
   .btn-selection .btn-inner-container {
     width: 180px;
-    height: 180px;
+    /* height: 180px; */
   }
 }
 
