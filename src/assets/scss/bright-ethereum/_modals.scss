@@ -38,12 +38,13 @@
   }
   // Footer (for actions)
   .modal-footer {
+    width: 60%;
     border-top: none;
     padding-right: 24px;
     padding-bottom: 16px;
     padding-left: 24px;
     -webkit-justify-content: space-between; /* Safari 6.1+ */
-    justify-content: space-between;
+    justify-content: space-around;
 
     button {
       margin: 0;

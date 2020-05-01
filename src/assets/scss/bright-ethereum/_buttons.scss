@@ -12,9 +12,8 @@
 
     @include btn-styles($default-color, $default-states-color);
 
-    &:hover,
-    &:focus{
-        @include opacity(1);
+    &:hover{
+        @include opacity(0.9);
         outline: 0 !important;
     }
     &:active,

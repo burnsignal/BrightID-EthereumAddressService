@@ -16,6 +16,7 @@ $smoke-bg:                   #F5F5F5 !default;
 $light-black:                #444    !default;
 
 $black-bg:                   rgba(30,30,30,.97) !default;
+$blue-bg:                    #214564;
 
 $black-color:                #2c2c2c !default;
 $black-hr:                   #444444 !default;
@@ -56,7 +57,7 @@ $success-states-color:       lighten($success-color, 6%) !default;
 $success-color-opacity:      rgba(24, 206, 15, .3) !default;
 $success-color-alert:        rgba(24, 206, 15, .8) !default;
 
-$info-color:                 #fb8a61 !default;
+$info-color:                 #e78a64 !default;
 $info-states-color:          lighten($info-color, 6%) !default;
 $info-color-opacity:         rgba(44, 168, 255, .3) !default;
 $info-color-alert:           rgba(44, 168, 255, .8) !default;
@@ -107,6 +108,8 @@ $padding-simple-horizontal:    17px !default;
 
 $padding-large-vertical:       15px !default;
 $padding-large-horizontal:     48px !default;
+
+$padding-xl-vertical:          64px !default;
 
 $padding-small-vertical:        5px !default;
 $padding-small-horizontal:     15px !default;

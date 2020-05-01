@@ -1,45 +1,31 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useState } from "react";
 
 // reactstrap components
 import { Container } from "reactstrap";
-import Main from "components/main";
 // core components
+import TransparentFooter from "components/TransparentFooter.js";
+
+import { mobileCheck } from "util/detectMobile";
+import { MobileFlow } from "./mobileFlow";
+import { DesktopFlow } from "./desktopFlow";
+
 
 function IndexHeader() {
-  let pageHeader = React.createRef();
-
-  React.useEffect(() => {
-    if (window.innerWidth > 991) {
-      const updateScroll = () => {
-        let windowScrollTop = window.pageYOffset / 3;
-        pageHeader.current.style.transform =
-          "translate3d(0," + windowScrollTop + "px,0)";
-      };
-      window.addEventListener("scroll", updateScroll);
-      return function cleanup() {
-        window.removeEventListener("scroll", updateScroll);
-      };
-    }
-  });
-
+  const [isMobile] = useState(mobileCheck())
   return (
     <>
       <div className="page-header clear-filter">
-        <div
-          className="page-header-image"
-          style={{
-            backgroundImage: "url(" + require("assets/img/BrightEthereumBackground.png") + ")"
-          }}
-          ref={pageHeader}
-        ></div>
         <Container>
           <div className="content-center brand">
             <h1 className="h1-seo">Bright Ethereum</h1>
-            <h3>Connect your Ethereum address to a global, unique identity network</h3>
-            <Main />
+            <h4>Link your Ethereum address to <strong>BrightID</strong>, a global, unique identity network:</h4>
+            {
+              isMobile ? <MobileFlow/> : <DesktopFlow/>
+            }
           </div>
         </Container>
+        <TransparentFooter />
       </div>
     </>
   );
