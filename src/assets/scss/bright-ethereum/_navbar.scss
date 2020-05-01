@@ -144,6 +144,14 @@
         padding-top: 20px !important;
     }
 
+    @media screen and (max-height: 790px) and (max-width: 490px) {
+        &.navbar-transparent{
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            background-color: $info-color !important;
+        }
+      }
+
     &.bg-white:not(.navbar-transparent){
         a:not(.dropdown-item):not(.btn){
             color: $default-color;

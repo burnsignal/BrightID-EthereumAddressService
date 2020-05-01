@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from "react";
-import BrightEthereumDeepLinkQR from "./qrGenerator";
-import { Button, Form, Input, Modal, ModalBody, Container, InputGroup, InputGroupAddon, FormFeedback } from 'reactstrap';
-import { assignEthereum } from '../util/metamask'
-import { convertENS } from '../util/ens'
-import MetaMask from '../assets/img/MetaMask.svg'
+import { Button, Input, FormFeedback, Modal, Container, ModalBody, Form } from 'reactstrap';
 import Web3 from 'web3';
-import { mobileCheck, androidOrIphoneLink } from "util/detectMobile";
+import { convertENS } from '../util/ens'
+import { androidOrIphoneLink } from "util/detectMobile";
 import { deepLinkPrefix } from "util/deepLink";
 
-const Main = () => {
+export const MobileFlow = () => {
     const [input, updateInput] = useState('');
-    const [address, updateAddress] = useState('');
-    const [showQR, toggleShowQR] = useState(false);
-    const [notSupported, toggleNotSupported] = useState(false);
     const [invalidError, setInvalidError] = useState(false);
     const [validAddress, isValid] = useState(true);
-    const [isMobile] = useState(mobileCheck())
-    const [ethereum] = useState(() => assignEthereum());
+    const [address, updateAddress] = useState('');
+    const [showQR, toggleShowQR] = useState(false);
     const [brightIdStoreLink] = useState(androidOrIphoneLink());
+    const [notSupported, toggleNotSupported] = useState(false);
 
-    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         updateInput(e.target.value)
     };
 
+
     useEffect(() => {
-        if (input.includes('.eth')) {
+        if (input && input.includes('.eth')) {
             async function resolveENS() {
                 validateAndUpdateAddress(await convertENS(input))
             }
@@ -44,9 +40,17 @@ const Main = () => {
 
     const submitAddress = (e: React.FormEvent) => {
         e.preventDefault();
-        if(validAddress && !isMobile) toggleShowQR(true);
-        else if (validAddress && isMobile) openAppOrAppStore();
+        if (validAddress) toggleShowQR(true);
         else setInvalidError(true)
+    }
+
+    const openAppOrAppStore = () => {
+        if (brightIdStoreLink === '') {
+            toggleNotSupported(true);
+            return;
+        }
+        setTimeout(() => { window.location.assign(brightIdStoreLink) }, 1000);
+        window.location.assign(deepLinkPrefix + `${address}`)
     }
 
     const resetState = () => {
@@ -55,25 +59,10 @@ const Main = () => {
         toggleNotSupported(false);
     }
 
-    const enableEthereum = async () => {
-        const result = await ethereum.enable()
-        updateInput(result[0])
-    }
-
-    const openAppOrAppStore = () => {
-        if (brightIdStoreLink === '') {
-            toggleNotSupported(true);
-            return;
-        }
-        setTimeout(() => { window.location.assign(brightIdStoreLink) }, 250);
-        window.location.assign(deepLinkPrefix + `${address}`)
-    }
-
     return (
         <Form>
             <div className="main-form">
-                <InputGroup style={{paddingBottom: invalidError  ? 0 : 20}}>
-                    <Input
+                <Input
                         onChange={handleChange}
                         id="ethereumAddress"
                         spellCheck={false}
@@ -83,46 +72,18 @@ const Main = () => {
                         value={input}
                         invalid={invalidError}
                     />
-                    <InputGroupAddon addonType="append" >
-                        <Button
-                            className="inlineButton"
-                            onClick={() => enableEthereum()}
-                            color="neutral"
-                            type="button"
-                            disabled={!ethereum}
-                        >
-                            <img src={MetaMask} alt="Connect with Metamask" />
-                        </Button>
-                    </InputGroupAddon>
                     <FormFeedback id="invalidAddress">
-                      Looks like this wallet address is invalid
+                        Looks like this wallet address is invalid
                     </FormFeedback>
-                </InputGroup>
-                {
-                    // TODO: Unify button functionality
-                    isMobile ?
-                        (
-                            <Button
-                                onClick={submitAddress}
-                                size="lg"
-                                color="neutral"
-                                type="submit"
-                                disabled={!input}
-                            >
-                                Link BrightID
-                            </Button>
-                        )
-                        :
-                        <Button
-                            onClick={submitAddress}
-                            size="lg"
-                            color="neutral"
-                            type="submit"
-                            disabled={!input}
-                        >
-                            Submit
-                        </Button>
-                }
+                <Button
+                    onClick={submitAddress}
+                    size="lg"
+                    color="neutral"
+                    type="submit"
+                    disabled={!validAddress}
+                >
+                    Submit
+                </Button>
                 {
                     showQR &&
                     <div>
@@ -131,11 +92,35 @@ const Main = () => {
                                 <div className="DefaultModal-content">
                                     <ModalBody>
                                         <div className="DefaultModal-content">
-                                            <p>Scan the QR code to connect your Ethereum address with your BrightID account</p>
-                                            <BrightEthereumDeepLinkQR ethAddress={address} />
+                                            <div style={{textAlign: 'left'}}>
+                                                <ol>
+                                                    <li style={{marginBottom: '10px'}}>
+                                                        Please send an empty 0 value transaction to <strong>brightid.burnsignal.eth</strong> from
+                                                            <p style={{
+                                                                fontSize: '9px',
+                                                                fontWeight: 'bold',
+                                                                marginBottom: '0px'
+                                                                }}>
+                                                            {address}
+                                                        </p>
+                                                        to register with the BrightID contract
+                                                    </li>
+                                                    <li>
+                                                        Click <strong>Link BrightID</strong> to link this address to your BrightID account with the BrightID mobile app
+                                                    </li>
+                                                </ol>                                             
+                                            </div>
                                         </div>
                                     </ModalBody>
                                     <div className="modal-footer">
+                                        <Button
+                                            onClick={() => openAppOrAppStore()}
+                                            size="lg"
+                                            color="primary"
+                                            type="button"
+                                        >
+                                            Link BrightID
+                                        </Button>
                                         <Button
                                             size="lg"
                                             color="warning"
@@ -177,8 +162,7 @@ const Main = () => {
                     </div>
                 }
             </div>
-        </Form>
-    );
-};
 
-export default Main;
+        </Form>
+    )
+}

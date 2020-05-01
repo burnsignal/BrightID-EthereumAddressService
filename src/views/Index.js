@@ -3,7 +3,6 @@ import React from "react";
 // core components
 import IndexNavbar from "components/IndexNavbar.js";
 import IndexHeader from "components/IndexHeader.js";
-import TransparentFooter from "components/TransparentFooter.js";
 
 function Index() {
   React.useEffect(() => {
@@ -19,13 +18,14 @@ function Index() {
   });
   return (
     <>
+      <div
+          className="bg-image"
+          style={{
+            backgroundImage: "url(" + require("assets/img/BrightEthereumBackground.png") + ")"
+          }}
+        ></div>
       <IndexNavbar />
-      <div className="page-header">
-        <IndexHeader />
-        <div className="main">
-        </div>
-        <TransparentFooter />
-      </div>
+      <IndexHeader />
     </>
   );
 }
