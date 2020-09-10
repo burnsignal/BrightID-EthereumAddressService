@@ -4,9 +4,9 @@ import React, { useState } from "react";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
-import TransparentFooter from "components/TransparentFooter.js";
+import TransparentFooter from "./TransparentFooter.js";
 
-import { mobileCheck } from "util/detectMobile";
+import { mobileCheck } from "../util/detectMobile";
 import { MobileFlow } from "./mobileFlow";
 import { DesktopFlow } from "./desktopFlow";
 

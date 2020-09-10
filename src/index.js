@@ -25,14 +25,19 @@ import "./assets/demo/demo.css";
 import "./assets/demo/nucleo-icons-page-styles.css";
 // pages for this kit
 import Modal from "./components/modal.js";
+import Index from "./views/Index.js";
 
 export function connect() {
   const el = document.createElement("div");
   el.id = 'brightid-modal';
+  el.position = 'fixed';
+  el.width = '100vw';
+  el.top: = '0';
+
   document.body.appendChild(el);
 
   ReactDOM.render(
-    <Modal isActive={true} className='brightid-connect'/>,
+    <Index />,
     document.getElementById(el.id)
   )
 }
