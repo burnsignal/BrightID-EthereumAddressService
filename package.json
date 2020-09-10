@@ -1,13 +1,14 @@
 {
+  "name": "brightid",
   "homepage": "https://ethereum.brightid.org",
-  "name": "app",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.4",
+  "main": "./dist/index.js",
   "dependencies": {
+    "@babel/core": "^7.11.6",
     "@types/jest": "24.0.20",
     "@types/node": "12.11.7",
-    "@types/react": "16.9.11",
-    "@types/react-dom": "16.9.3",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.3",
     "@types/reactstrap": "^8.4.2",
     "@walletconnect/web3-provider": "^1.0.0-beta.47",
     "authereum": "0.0.4-beta.133",
@@ -27,6 +28,7 @@
     "react-router-dom": "5.0.1",
     "react-scripts": "^3.4.1",
     "reactstrap": "8.0.1",
+    "typescript": "^3.6.4",
     "web3": "^1.2.9",
     "web3modal": "~1.7.0"
   },
@@ -57,7 +59,7 @@
       "last 1 safari version"
     ]
   },
-  "optionalDependencies": {
-    "typescript": "3.6.4"
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.10.4"
   }
 }

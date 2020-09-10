@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import web3logo from '../assets/img/web3js.jpg'
 import { Button, Modal, Container, ModalBody } from 'reactstrap';
-import { getWeb3 } from "util/web3";
+import { getWeb3 } from "../util/web3";
 import { Contract } from 'web3-eth-contract';
-import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "util/constants";
-import { getAuthenticated, checkAuthenticated } from "util/brightID"
+import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "../util/constants";
+import { getAuthenticated, checkAuthenticated } from "../util/brightID"
 import Web3 from 'web3';
 import BrightEthereumDeepLinkQR from "./qrGenerator";
 
@@ -21,7 +21,7 @@ export const DesktopFlow = () => {
         updateAddress(accounts[0]);
         if (accounts[0] && !checkAuthenticated(accounts[0], authenticated)) {
             setUserAuthenticated(false);
-        } 
+        }
         else if (accounts[0] && checkAuthenticated(accounts[0], authenticated)) {
             setUserAuthenticated(true);
         }
@@ -40,11 +40,11 @@ export const DesktopFlow = () => {
         try {
           const web3 = await getWeb3()
           await configureWeb3(web3)
-    
+
           // @ts-ignore
           window.ethereum.on('accountsChanged',
           async () => await configureWeb3(web3))
-    
+
         } catch(e) {
           alert('Web3 login could not be detected')
         }
@@ -97,7 +97,7 @@ export const DesktopFlow = () => {
                                 </ul>
                             </div>
                         </div>
-                        <p><strong>Get started >></strong></p>
+                        <p><strong>Get started</strong></p>
                     </div>
                 </Button>
         </div>
@@ -121,17 +121,17 @@ export const DesktopFlow = () => {
                                         !userAuthenticated && !txSubmitted &&
                                         <div>
                                             <p>
-                                                Is this the address you would like to link with BrightID? 
+                                                Is this the address you would like to link with BrightID?
                                             </p>
                                             <p><strong>{address}</strong></p>
                                         </div>
                                     }
                                     {
-                                        txSubmitted && 
+                                        txSubmitted &&
                                         <div>
                                             <p>Scan the code with any QR scanner or the BrightID app to link your accounts and you're finished!</p>
                                             <BrightEthereumDeepLinkQR ethAddress={address} />
-                                        </div> 
+                                        </div>
                                     }
                                 </div>
                             </ModalBody>

@@ -17,23 +17,22 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 // styles for this kit
-import "assets/css/bootstrap.min.css";
-import "assets/scss/bright-ethereum.scss";
-import "assets/demo/demo.css";
-import "assets/demo/nucleo-icons-page-styles.css";
+import "./assets/css/bootstrap.min.css";
+import "./assets/scss/bright-ethereum.scss";
+import "./assets/demo/demo.css";
+import "./assets/demo/nucleo-icons-page-styles.css";
 // pages for this kit
-import Index from "views/Index.js";
+import Modal from "./components/modal.js";
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Switch>
-        <Route path="/" render={props => <Index {...props} />} />
-      </Switch>
-    </Switch>
-  </BrowserRouter>,
-  document.getElementById("root")
-);
+export function connect() {
+  const el = document.createElement("div");
+  el.id = 'brightid-modal';
+  document.body.appendChild(el);
+
+  ReactDOM.render(
+    <Modal isActive={true} className='brightid-connect'/>,
+    document.getElementById(el.id)
+  )
+}

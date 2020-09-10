@@ -1,5 +1,5 @@
 import React from "react";
-import { deepLinkPrefix } from "util/deepLink";
+import { deepLinkPrefix } from "../util/deepLink";
 const QRCode = require("qrcode.react");
 
 interface BrightEthereumDeepLinkQRProps {

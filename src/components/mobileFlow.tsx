@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button, Input, FormFeedback, Modal, Container, ModalBody, Form } from 'reactstrap';
 import Web3 from 'web3';
 import { convertENS } from '../util/ens'
-import { androidOrIphoneLink } from "util/detectMobile";
-import { deepLinkPrefix } from "util/deepLink";
+import { androidOrIphoneLink } from "../util/detectMobile";
+import { deepLinkPrefix } from "../util/deepLink";
 
 export const MobileFlow = () => {
     const [input, updateInput] = useState('');
@@ -108,7 +108,7 @@ export const MobileFlow = () => {
                                                     <li>
                                                         Click <strong>Link BrightID</strong> to link this address to your BrightID account with the BrightID mobile app
                                                     </li>
-                                                </ol>                                             
+                                                </ol>
                                             </div>
                                         </div>
                                     </ModalBody>
