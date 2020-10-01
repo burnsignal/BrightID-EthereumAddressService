@@ -18,14 +18,11 @@ function IndexHeader() {
       <div className="page-header clear-filter">
         <Container>
           <div className="content-center brand">
-            <h1 className="h1-seo">Bright Ethereum</h1>
-            <h4>Link your Ethereum address to <strong>BrightID</strong>, a global, unique identity network:</h4>
             {
               isMobile ? <MobileFlow/> : <DesktopFlow/>
             }
           </div>
         </Container>
-        <TransparentFooter />
       </div>
     </>
   );

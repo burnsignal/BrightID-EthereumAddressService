@@ -16,6 +16,7 @@ export const DesktopFlow = () => {
     const [address, updateAddress] = useState('');
     const [userAuthenticated, setUserAuthenticated] = useState(false);
     const [txSubmitted, setTxSubmitted] = useState(false);
+    const [ web3Connection, setConnection ] = useState(false);
 
     useEffect(() => {
         updateAddress(accounts[0]);
@@ -54,10 +55,12 @@ export const DesktopFlow = () => {
         setInstance(new web3.eth.Contract(SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS));
         setAuthenticated(await getAuthenticated());
         setAccounts(await web3.eth.getAccounts());
+        setConnection(true)
       }
 
       const resetState = () => {
         toggleShowQR(false);
+        setConnection(false)
     }
 
       const sponsor = async () => {
@@ -77,6 +80,8 @@ export const DesktopFlow = () => {
 
     return (
         <div>
+        {
+            !web3Connection &&
             <div className="btn-selection">
                 <Button className="btn"
                     onClick={maybeInitWeb3}
@@ -100,15 +105,14 @@ export const DesktopFlow = () => {
                         <p><strong>Get started</strong></p>
                     </div>
                 </Button>
-        </div>
+          </div>
+        }
         {
             showQR &&
             <div>
-                <Modal onExit={resetState} className="DefaultModal" isOpen={showQR} toggle={() => toggleShowQR(false)}>
                     <Container>
-                        <div className="DefaultModal-content">
-                            <ModalBody>
-                                <div className="DefaultModal-content">
+                        <div>
+                                <div>
                                     {
                                         userAuthenticated &&
                                         <div>
@@ -134,8 +138,6 @@ export const DesktopFlow = () => {
                                         </div>
                                     }
                                 </div>
-                            </ModalBody>
-                            <div className="modal-footer">
                                 <Button
                                     size="lg"
                                     color="primary"
@@ -154,10 +156,8 @@ export const DesktopFlow = () => {
                                         Continue
                                     </Button>
                                 }
-                            </div>
                         </div>
                     </Container>
-                </Modal>
             </div>
         }
 

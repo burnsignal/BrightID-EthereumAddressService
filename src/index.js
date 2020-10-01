@@ -37,7 +37,9 @@ export function connect() {
   document.body.appendChild(el);
 
   ReactDOM.render(
-    <Index />,
+    <Modal active> <Index /> </Modal>,
     document.getElementById(el.id)
   )
 }
+
+connect()

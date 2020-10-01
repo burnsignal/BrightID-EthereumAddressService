@@ -1,11 +1,11 @@
 // style for the landing page
 .index-page{
     .page-header{
-        height: 100vh;
+        height: 450px;
 
         .container{
             > .content-center{
-                margin-top: 15vh;
+                margin-top: 10vh;
                 top: 37%;
             }
         }
@@ -23,7 +23,7 @@
 .landing-page{
 
     .header{
-        height: 100vh;
+        height: 450px;
         position: relative;
 
         .container{
@@ -118,7 +118,7 @@
     }
 
     .content{
-        max-width: 450px;
+        max-width: 650px;
         margin: 0 auto;
 
         .social-description{

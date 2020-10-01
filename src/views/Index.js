@@ -18,13 +18,6 @@ function Index() {
   });
   return (
     <>
-      <div
-          className="bg-image"
-          style={{
-            backgroundImage: "url(" + require("../assets/img/BrightEthereumBackground.png") + ")"
-          }}
-        ></div>
-      <IndexNavbar />
       <IndexHeader />
     </>
   );

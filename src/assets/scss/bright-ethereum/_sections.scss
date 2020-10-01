@@ -19,10 +19,8 @@
 }
 
 .page-header{
-  min-height: 100vh;
-  max-height: 999px;
   padding: 0;
-  color: $white-color;
+  color: $black-color;
   position: relative;
   overflow: hidden;
 
@@ -65,7 +63,7 @@
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
       text-align: center;
-      color: #FFFFFF;
+      color: $black-color;
       padding: 0 15px;
       width: 80%;
       max-width: 880px;
