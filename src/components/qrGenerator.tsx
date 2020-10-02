@@ -10,10 +10,8 @@ const BrightEthereumDeepLinkQR = ({
   ethAddress,
 }: BrightEthereumDeepLinkQRProps) => {
   const deepLink = deepLinkPrefix + ethAddress;
-  return (
-    <div>
-      <QRCode value={deepLink} size={192} />
-    </div>);
+
+  return <QRCode value={deepLink} size={200} />
 };
 
 export default BrightEthereumDeepLinkQR;

@@ -30,9 +30,6 @@ import Index from "./views/Index.js";
 export function connect() {
   const el = document.createElement("div");
   el.id = 'brightid-modal';
-  el.style.position = 'fixed';
-  el.style.width = '100vw';
-  el.style.top = '0';
 
   document.body.appendChild(el);
 

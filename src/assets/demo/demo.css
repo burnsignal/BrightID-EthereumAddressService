@@ -553,12 +553,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  margin-top:-37.5%;
 }
 
 .btn-selection .btn-content {
   height: 85%;
   display: flex;
   flex-direction: row;
+  margin-top: 15px;
   align-items: center;
   justify-content: space-around;
 }
@@ -569,11 +571,12 @@
   flex-direction: column;
   text-align: left;
   justify-content: space-evenly;
-  margin-left: 15px;
+  margin-left: 25px;
 }
 
 .btn-text p {
   margin: 0 !important;
+  margin-top: 25px;
 }
 
 .btn-selection .selection-title {
@@ -603,9 +606,13 @@
 }
 
 .btn-selection .small-caps {
-  font-size: 1.1em;
+  font-size: 17.5px;
   font-variant: small-caps;
-  margin-bottom: 10px;
+  padding-top: 10px;
+}
+
+.btn-selection .small-caps li {
+  margin-bottom: 20px;
 }
 
 .btn-selection .btn-inner-container {
@@ -615,8 +622,54 @@
 
 .btn-inner-container > p {
   text-align: center;
-  font-size: 14px;
 }
+
+.btn-inner-container p:last-of-type {
+  font-size: 15px;
+  margin-top: 30px;
+  border: 1px solid #e78a64;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px 12.5px;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.modal-content .modal-header button span {
+  font-size: 37.5px;
+}
+
+.modal-content .modal-header button {
+  margin-top: -2rem;
+}
+
+
+.btn-primary {
+  border: 2px solid #e78a64;
+  border-radius: 5px;
+  background: white;
+  color: #e78a64;
+}
+
+.btn-primary:hover {
+  background: white;
+  border-color: #e78a64;
+  color: #e78a64;
+  font-weight: 600;
+}
+
+.btn-warning {
+  border: 2px solid #e78a64;
+  border-radius: 5px;
+  background: #e78a64 !important;
+  color: white;
+}
+
+.btn-warning:hover {
+  border-color: #e78a64;
+  font-weight: 600;
+}
+
 
 @media screen and (max-width: 991px) {
   .btn-selection .btn-inner-container {
@@ -625,7 +678,7 @@
 }
 
 .btn-selection .btn img {
-  width: 30%;
+  width: 45%;
 }
 
 @media screen and (max-width: 991px) {
@@ -663,4 +716,45 @@
   .main-input {
     font-size: 14px;
   }
+}
+
+#WEB3_CONNECT_MODAL_ID {
+  z-index: 2000 !important;
+  position: fixed;
+}
+
+.web3modal-modal-card,
+.web3modal-provider-container {
+  background: #333333 !important;
+  color: white;
+}
+
+.web3modal-provider-container:hover {
+  background: #666666 !important;
+}
+
+.authd  {
+  margin-bottom: 50px;
+}
+
+.authd p:nth-of-type(2) {
+   text-align: center;
+   margin-bottom: 25px;
+}
+
+.submitted .qr-code {
+  display: block;
+  padding: 25px 0px;
+}
+
+.blockie-container {
+  padding: 25px 0px 5px 0px;
+}
+
+.unauthd p:first-of-type {
+  margin-top: -50px;
+}
+
+.submitted p {
+  margin-top: -30px;
 }

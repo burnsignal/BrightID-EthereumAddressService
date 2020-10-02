@@ -7,6 +7,7 @@ import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "../util/constant
 import { getAuthenticated, checkAuthenticated } from "../util/brightID"
 import Web3 from 'web3';
 import BrightEthereumDeepLinkQR from "./qrGenerator";
+import Blockie from "./blockie";
 
 export const DesktopFlow = () => {
     const [accounts, setAccounts] = useState<string[]>([]);
@@ -55,12 +56,10 @@ export const DesktopFlow = () => {
         setInstance(new web3.eth.Contract(SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS));
         setAuthenticated(await getAuthenticated());
         setAccounts(await web3.eth.getAccounts());
-        setConnection(true)
       }
 
       const resetState = () => {
         toggleShowQR(false);
-        setConnection(false)
     }
 
       const sponsor = async () => {
@@ -81,7 +80,7 @@ export const DesktopFlow = () => {
     return (
         <div>
         {
-            !web3Connection &&
+            !showQR &&
             <div className="btn-selection">
                 <Button className="btn"
                     onClick={maybeInitWeb3}
@@ -89,20 +88,20 @@ export const DesktopFlow = () => {
                     type="button"
                 >
                     <div className="btn-inner-container">
-                        <div className="btn-content">
-                            <img src={web3logo} alt=""/>
-                            <div className="btn-text">
-                                <p>
-                                    Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
-                                </p>
-                                <ul className="small-caps">
-                                    <li>Metamask</li>
-                                    <li>WalletConnect</li>
-                                    <li>Authereum</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <p><strong>Get started</strong></p>
+                      <p>
+                        Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
+                      </p>
+                      <div className="btn-content">
+                        <img src={web3logo} alt=""/>
+                          <div className="btn-text">
+                            <ul className="small-caps">
+                              <li>Metamask</li>
+                              <li>WalletConnect</li>
+                              <li>Authereum</li>
+                            </ul>
+                          </div>
+                       </div>
+                       <p><strong>Get started</strong></p>
                     </div>
                 </Button>
           </div>
@@ -114,27 +113,35 @@ export const DesktopFlow = () => {
                         <div>
                                 <div>
                                     {
+                                        !userAuthenticated && !txSubmitted &&
+                                        <div className='unauthd'>
+                                            <p>
+                                                Is this the address you would like to link with BrightID?
+                                            </p>
+                                            <Blockie address={address} />
+                                            <p>
+                                              <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
+                                            </p>
+                                        </div>
+                                    }
+                                    {
                                         userAuthenticated &&
-                                        <div>
+                                        <div className='authd'>
                                             <p>Your address:</p>
-                                            <p><strong>{address}</strong></p>
+                                            <Blockie address={address} />
+                                            <p>
+                                              <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
+                                            </p>
                                             <p>is already verified with BrightID.</p>
                                         </div>
                                     }
                                     {
-                                        !userAuthenticated && !txSubmitted &&
-                                        <div>
-                                            <p>
-                                                Is this the address you would like to link with BrightID?
-                                            </p>
-                                            <p><strong>{address}</strong></p>
-                                        </div>
-                                    }
-                                    {
                                         txSubmitted &&
-                                        <div>
+                                        <div className="submitted">
                                             <p>Scan the code with any QR scanner or the BrightID app to link your accounts and you're finished!</p>
-                                            <BrightEthereumDeepLinkQR ethAddress={address} />
+                                            <div className='qr-code'>
+                                              <BrightEthereumDeepLinkQR ethAddress={address} />
+                                            </div>
                                         </div>
                                     }
                                 </div>
