@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "baseUrl": "src",
+    "baseUrl": "src/index.js",
     "target": "es6",
     "lib": [
       "dom",
@@ -19,13 +19,12 @@
     "resolveJsonModule": true,
     "declaration": false,
     "jsx": "react",
-    "isolatedModules": true,
-    "noEmit": true
+    "isolatedModules": true
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "src"
+    "src",
   ]
 }
