@@ -17,7 +17,7 @@ function IndexHeader() {
         <Container>
           <div className="content-center brand">
             {
-              !isMobile ? <MobileFlow/> : <DesktopFlow/>
+              isMobile ? <MobileFlow/> : <DesktopFlow/>
             }
           </div>
         </Container>
