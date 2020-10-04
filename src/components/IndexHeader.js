@@ -4,8 +4,6 @@ import React, { useState } from "react";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
-import TransparentFooter from "./TransparentFooter.js";
-
 import { mobileCheck } from "../util/detectMobile";
 import { MobileFlow } from "./mobileFlow";
 import { DesktopFlow } from "./desktopFlow";
@@ -19,7 +17,7 @@ function IndexHeader() {
         <Container>
           <div className="content-center brand">
             {
-              isMobile ? <MobileFlow/> : <DesktopFlow/>
+              !isMobile ? <MobileFlow/> : <DesktopFlow/>
             }
           </div>
         </Container>

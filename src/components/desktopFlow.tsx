@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import web3logo from '../assets/img/web3js.jpg'
+import brightId from '../assets/img/brightid.svg'
 import { Button, Modal, Container, ModalBody } from 'reactstrap';
 import { getWeb3 } from "../util/web3";
 import { Contract } from 'web3-eth-contract';
@@ -92,7 +92,7 @@ export const DesktopFlow = () => {
                         Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
                       </p>
                       <div className="btn-content">
-                        <img src={web3logo} alt=""/>
+                        <img src={brightId} alt="" />
                           <div className="btn-text">
                             <ul className="small-caps">
                               <li>Metamask</li>
@@ -113,7 +113,7 @@ export const DesktopFlow = () => {
                         <div>
                                 <div>
                                     {
-                                        !userAuthenticated && !txSubmitted &&
+                                        userAuthenticated && !txSubmitted &&
                                         <div className='unauthd'>
                                             <p>
                                                 Is this the address you would like to link with BrightID?
@@ -125,7 +125,7 @@ export const DesktopFlow = () => {
                                         </div>
                                     }
                                     {
-                                        userAuthenticated &&
+                                        !userAuthenticated &&
                                         <div className='authd'>
                                             <p>Your address:</p>
                                             <Blockie address={address} />

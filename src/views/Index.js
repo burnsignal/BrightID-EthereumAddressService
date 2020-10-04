@@ -1,7 +1,7 @@
 import React from "react";
 
 // core components
-import IndexNavbar from "../components/IndexNavbar.js";
+
 import IndexHeader from "../components/IndexHeader.js";
 
 function Index() {

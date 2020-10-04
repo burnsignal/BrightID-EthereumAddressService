@@ -4,6 +4,7 @@ import Web3 from 'web3';
 import { convertENS } from '../util/ens'
 import { androidOrIphoneLink } from "../util/detectMobile";
 import { deepLinkPrefix } from "../util/deepLink";
+import brightId from '../assets/img/brightid.svg'
 
 export const MobileFlow = () => {
     const [input, updateInput] = useState('');
@@ -61,105 +62,95 @@ export const MobileFlow = () => {
 
     return (
         <Form>
-            <div className="main-form">
+          <div className="main-form">
+             {!showQR &&
+              <div>
+                <div className="mobile-brand">
+                  <img src={brightId} alt="" />
+                </div>
+                <p>Enter your Ethereum address or ENS Domain</p>
                 <Input
-                        onChange={handleChange}
-                        id="ethereumAddress"
-                        spellCheck={false}
-                        autoComplete="off"
-                        className="main-input"
-                        placeholder="Enter your Ethereum address or ENS Domain"
-                        value={input}
-                        invalid={invalidError}
-                    />
-                    <FormFeedback id="invalidAddress">
-                        Looks like this wallet address is invalid
-                    </FormFeedback>
+                  onChange={handleChange}
+                  id="ethereumAddress"
+                  spellCheck={false}
+                  autoComplete="off"
+                  className="main-input"
+                  placeholder="0x83...c403"
+                  value={input}
+                  invalid={invalidError}
+                />
+                <FormFeedback id="invalidAddress">
+                  Looks like this wallet address is invalid
+                </FormFeedback>
                 <Button
-                    onClick={submitAddress}
-                    size="lg"
-                    color="neutral"
-                    type="submit"
-                    disabled={!validAddress}
+                  onClick={submitAddress}
+                  size="lg"
+                  color="primary"
+                  type="submit"
+                  disabled={!validAddress}
                 >
-                    Submit
+                  Submit
                 </Button>
-                {
-                    showQR &&
-                    <div>
-                        <Modal onExit={resetState} className="DefaultModal" isOpen={showQR} toggle={() => toggleShowQR(false)}>
-                            <Container>
-                                <div className="DefaultModal-content">
-                                    <ModalBody>
-                                        <div className="DefaultModal-content">
-                                            <div style={{textAlign: 'left'}}>
-                                                <ol>
-                                                    <li style={{marginBottom: '10px'}}>
-                                                        Please send an empty 0 value transaction to <strong>brightid.burnsignal.eth</strong> from
-                                                            <p style={{
-                                                                fontSize: '9px',
-                                                                fontWeight: 'bold',
-                                                                marginBottom: '0px'
-                                                                }}>
-                                                            {address}
-                                                        </p>
-                                                        to register with the BrightID contract
-                                                    </li>
-                                                    <li>
-                                                        Click <strong>Link BrightID</strong> to link this address to your BrightID account with the BrightID mobile app
-                                                    </li>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                    </ModalBody>
-                                    <div className="modal-footer">
-                                        <Button
-                                            onClick={() => openAppOrAppStore()}
-                                            size="lg"
-                                            color="primary"
-                                            type="button"
-                                        >
-                                            Link BrightID
-                                        </Button>
-                                        <Button
-                                            size="lg"
-                                            color="warning"
-                                            type="button"
-                                            onClick={resetState}
-                                        >
-                                            Close
-                                </Button>
-                                    </div>
-                                </div>
-                            </Container>
-                        </Modal>
-                    </div>
+              </div>
+            }
+            {
+              showQR && !notSupported &&
+               <Container>
+                 <div style={{textAlign: 'left'}}>
+                   <ol>
+                     <li style={{marginBottom: '10px'}}>
+                        Please send an empty 0 value transaction to <strong>brightid.burnsignal.eth</strong> from
+                        <p style={{
+                            fontSize: '9px',
+                            fontWeight: 'bold',
+                            marginBottom: '0px'
+                          }}>
+                          {address}
+                        </p>
+                        to register with the BrightID contract
+                     </li>
+                     <li>
+                        Click the <strong>Link</strong> button below to link this address to your BrightID account using the BrightID mobile app
+                     </li>
+                   </ol>
+                 </div>
+                 <div className="modal-footer">
+                   <Button
+                     onClick={() => openAppOrAppStore()}
+                     size="lg"
+                     color="primary"
+                     type="button"
+                    >
+                      Link
+                    </Button>
+                    <Button
+                      size="lg"
+                      color="warning"
+                      type="button"
+                      onClick={resetState}
+                    >
+                      Close
+                    </Button>
+                  </div>
+                </Container>
                 }
                 {
-                    notSupported &&
+                  notSupported &&
                     <div>
-                        <Modal onExit={resetState} className="DefaultModal" isOpen={notSupported} toggle={() => toggleNotSupported(false)}>
-                            <Container>
-                                <div className="DefaultModal-content">
-                                    <ModalBody>
-                                        <div className="DefaultModal-content">
-                                            <p>Unfortunately, the BrightID app is not available for your mobile operating system.</p>
-                                        </div>
-                                    </ModalBody>
-                                    <div className="modal-footer">
-                                        <Button
-                                            size="lg"
-                                            color="warning"
-                                            type="button"
-                                            onClick={resetState}
-                                        >
-                                            Close
-                                </Button>
-                                    </div>
-                                </div>
-                            </Container>
-                        </Modal>
-                    </div>
+                      <Container>
+                        <p>Unfortunately, the BrightID app is not available for your mobile operating system.</p>
+                        <div className="modal-footer">
+                          <Button
+                           size="lg"
+                           color="warning"
+                           type="button"
+                           onClick={resetState}
+                          >
+                            Close
+                          </Button>
+                        </div>
+                     </Container>
+                  </div>
                 }
             </div>
 

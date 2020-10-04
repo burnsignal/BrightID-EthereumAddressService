@@ -85,3 +85,11 @@ body{
   margin: 7.5% auto !important;
   max-width: 45vw;
 }
+
+@media screen and (max-width: 600px) {
+  .modal-frame {
+    margin: 15% auto !important;
+    max-width: 80vw;
+  }
+
+}

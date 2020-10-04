@@ -13,6 +13,11 @@ export default function ModalWrapper({ children, active }) {
          <ModalBody>
           {children}
         </ModalBody>
+        <ModalFooter>
+          <div className="copyright" id="copyright">
+            © {new Date().getFullYear()} Bright Ethereum{" "}
+          </div>
+        </ModalFooter>
       </Modal>
     </div>
   );

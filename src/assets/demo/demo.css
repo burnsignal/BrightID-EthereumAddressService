@@ -670,6 +670,21 @@
   font-weight: 600;
 }
 
+li strong {
+  color: #e78a64;
+}
+
+.mobile-brand {
+  padding-bottom: 50px;
+}
+
+.mobile-brand img {
+  width: 200px;
+}
+
+.main-input {
+  margin-bottom: 25px;
+}
 
 @media screen and (max-width: 991px) {
   .btn-selection .btn-inner-container {
@@ -734,7 +749,7 @@
 }
 
 .authd  {
-  margin-bottom: 50px;
+  margin-bottom: 12.5px;
 }
 
 .authd p:nth-of-type(2) {
@@ -757,4 +772,27 @@
 
 .submitted p {
   margin-top: -30px;
+}
+
+.modal-content .modal-footer {
+  width: 100%;
+  align-items: flex-end;
+}
+
+.copyright {
+  float: right;
+  margin-left: auto;
+  color: rgba(231, 138, 100, 0.875);
+}
+
+.main-input {
+  color: black !important;
+}
+
+.main-input {
+  border-color:  rgba(231, 138, 100, 0.875) !important;
+}
+
+::placeholder {
+  color: #999999 !important;
 }
