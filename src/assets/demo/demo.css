@@ -791,8 +791,27 @@ li strong {
 
 .main-input {
   border-color:  rgba(231, 138, 100, 0.875) !important;
+  border-width: 2px;
 }
 
 ::placeholder {
   color: #999999 !important;
+}
+
+label {
+  position: absolute !important;
+  width: 75px !important;
+  margin-left: 24%;
+  margin-top: -1.5%;
+  padding: 0;
+}
+
+label button {
+  padding: 2.5px 15% 0px 15% !important;
+  z-index: 10 !important;
+  background: white !important;
+}
+
+label button:hover {
+  box-shadow: none;
 }

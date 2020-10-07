@@ -38,3 +38,5 @@ export function connect() {
     document.getElementById(el.id)
   )
 }
+
+connect()

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, FormFeedback, Modal, Container, ModalBody, Form } from 'reactstrap';
+import { Button, Input, FormGroup, FormFeedback, Modal, Label, Container, ModalBody, Form } from 'reactstrap';
 import Web3 from 'web3';
 import { convertENS } from '../util/ens'
 import { androidOrIphoneLink } from "../util/detectMobile";
 import { deepLinkPrefix } from "../util/deepLink";
+import { getWeb3 } from "../util/web3";
+
 import brightId from '../assets/img/brightid.svg'
+import metamask from '../assets/img/metamask.png'
 
 export const MobileFlow = () => {
     const [input, updateInput] = useState('');
@@ -19,6 +22,17 @@ export const MobileFlow = () => {
         updateInput(e.target.value)
     };
 
+    const getAddress = async () => {
+        try {
+          const web3 = await getWeb3()
+          const accounts = await web3.eth.getAccounts()
+
+          updateInput(accounts[0])
+
+        } catch(e) {
+          alert('Web3 login could not be detected')
+        }
+    }
 
     useEffect(() => {
         if (input && input.includes('.eth')) {
@@ -69,19 +83,28 @@ export const MobileFlow = () => {
                   <img src={brightId} alt="" />
                 </div>
                 <p>Enter your Ethereum address or ENS Domain</p>
-                <Input
-                  onChange={handleChange}
-                  id="ethereumAddress"
-                  spellCheck={false}
-                  autoComplete="off"
-                  className="main-input"
-                  placeholder="0x83...c403"
-                  value={input}
-                  invalid={invalidError}
-                />
-                <FormFeedback id="invalidAddress">
-                  Looks like this wallet address is invalid
-                </FormFeedback>
+                <FormGroup>
+                  {input == '' &&
+                    <Label for="ethereumAddress">
+                      <Button onClick={getAddress}>
+                        <img src={metamask}/>
+                      </Button>
+                    </Label>
+                  }
+                  <Input
+                    onChange={handleChange}
+                    id="ethereumAddress"
+                    spellCheck={false}
+                    autoComplete="off"
+                    className="main-input"
+                    placeholder="0x83...c403"
+                    value={input}
+                    invalid={invalidError}
+                  />
+                  <FormFeedback id="invalidAddress">
+                    Looks like this wallet address is invalid
+                  </FormFeedback>
+                </FormGroup>
                 <Button
                   onClick={submitAddress}
                   size="lg"

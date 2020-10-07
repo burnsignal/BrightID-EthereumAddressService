@@ -113,7 +113,7 @@ export const DesktopFlow = () => {
                         <div>
                                 <div>
                                     {
-                                        userAuthenticated && !txSubmitted &&
+                                      !userAuthenticated &&
                                         <div className='unauthd'>
                                             <p>
                                                 Is this the address you would like to link with BrightID?
@@ -125,7 +125,7 @@ export const DesktopFlow = () => {
                                         </div>
                                     }
                                     {
-                                        !userAuthenticated &&
+                                        userAuthenticated &&
                                         <div className='authd'>
                                             <p>Your address:</p>
                                             <Blockie address={address} />
@@ -154,7 +154,7 @@ export const DesktopFlow = () => {
                                     Go back
                                 </Button>
                                 {
-                                    !userAuthenticated && !txSubmitted &&
+                                    !userAuthenticated &&
                                     <Button
                                         onClick={() => sponsor()}
                                         size="lg"

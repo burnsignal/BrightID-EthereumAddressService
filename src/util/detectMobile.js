@@ -5,7 +5,7 @@ export const mobileCheck = function () {
     return check;
 };
 
-export const appStoreLink = "https://testflight.apple.com/join/L99RcYEc"
+export const appStoreLink = "https://apps.apple.com/us/app/brightid/id1428946820"
 
 export const playStoreLink = "https://play.google.com/store/apps/details?id=org.brightid"
 
