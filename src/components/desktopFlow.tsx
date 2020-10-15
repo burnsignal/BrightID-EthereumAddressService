@@ -5,7 +5,7 @@ import { Contract } from 'web3-eth-contract';
 import Web3 from 'web3'
 
 import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "../assets/constants/parameters";
-import { getAuthenticated, checkAuthenticated } from "../util/brightID"
+import { isAuthenticated } from "../util/brightID"
 import brightId from '../assets/img/brightid.svg'
 
 import BrightEthereumDeepLinkQR from "./qrGenerator";
@@ -15,21 +15,10 @@ export const DesktopFlow = () => {
     const [accounts, setAccounts] = useState<string[]>([]);
     const [contractInstance, setInstance] = useState<Contract>()
     const [showQR, toggleShowQR] = useState(false);
-    const [authenticated, setAuthenticated] = useState<string[]>([]);
     const [address, updateAddress] = useState('');
     const [userAuthenticated, setUserAuthenticated] = useState(false);
     const [txSubmitted, setTxSubmitted] = useState(false);
     const [ web3Connection, setConnection ] = useState(false);
-
-    useEffect(() => {
-        updateAddress(accounts[0]);
-        if (accounts[0] && !checkAuthenticated(accounts[0], authenticated)) {
-            setUserAuthenticated(false);
-        }
-        else if (accounts[0] && checkAuthenticated(accounts[0], authenticated)) {
-            setUserAuthenticated(true);
-        }
-    }, [accounts, authenticated])
 
     const maybeInitWeb3 = async () => {
         if (!contractInstance || accounts.length === 0) {
@@ -55,14 +44,17 @@ export const DesktopFlow = () => {
     }
 
     const configureWeb3 = async(web3: Web3) => {
+        let accs = await web3.eth.getAccounts();
+
         setInstance(new web3.eth.Contract(SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS));
-        setAuthenticated(await getAuthenticated());
-        setAccounts(await web3.eth.getAccounts());
+        setUserAuthenticated(await isAuthenticated(accs[0]));
+        updateAddress(accs[0]);
+        setAccounts(accs);
       }
 
       const resetState = () => {
         toggleShowQR(false);
-    }
+      }
 
       const sponsor = async () => {
         if (contractInstance !== undefined) {

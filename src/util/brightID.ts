@@ -1,7 +1,7 @@
 import { toChecksumAddress } from 'web3-utils';
 import { BRIGHTID_ENDPOINT } from '../assets/constants/parameters';
 
-export const getAuthenticated = async () => {
+const getAuthenticated = async () => {
   try {
       const response = await fetch(BRIGHTID_ENDPOINT);
       if (!response.ok) {
@@ -16,6 +16,8 @@ export const getAuthenticated = async () => {
   }
 }
 
-export const checkAuthenticated = (address: string, authenticated: string[]) => {
+export const isAuthenticated = async(address: string) => {
+    let authenticated = await getAuthenticated();
+
     return authenticated.includes(toChecksumAddress(address));
 }

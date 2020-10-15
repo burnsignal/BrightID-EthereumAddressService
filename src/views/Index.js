@@ -1,10 +1,8 @@
 import React from "react";
 
-// core components
+import Root from "../components/root";
 
-import IndexHeader from "../components/IndexHeader.js";
-
-function Index() {
+export default function Index() {
   React.useEffect(() => {
     document.body.classList.add("index-page");
     document.body.classList.add("sidebar-collapse");
@@ -16,11 +14,6 @@ function Index() {
       document.body.classList.remove("sidebar-collapse");
     };
   });
-  return (
-    <>
-      <IndexHeader />
-    </>
-  );
-}
 
-export default Index;
+  return <Root />
+}

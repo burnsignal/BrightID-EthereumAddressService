@@ -1,20 +1,3 @@
-/*
-
-=========================================================
-* Now UI Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/bright-ethereum-react
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/bright-ethereum-react/blob/master/LICENSE.md)
-
-* Designed by www.invisionapp.com Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -24,11 +7,14 @@ import "./assets/scss/bright-ethereum.scss";
 import "./assets/css/demo.css";
 import "./assets/css/nucleo-icons-page-styles.css";
 
-// pages for this kit
-import Modal from "./components/modal.js";
-import Index from "./views/Index.js";
+import { isAuthenticated } from './util/brightID'
+import { convertENS } from './util/ens'
 
-export function connect() {
+// pages for this kit
+import Modal from "./components/modal";
+import Index from "./views";
+
+export function verify() {
   const el = document.createElement("div");
   el.id = 'brightid-modal';
 
@@ -40,4 +26,14 @@ export function connect() {
   )
 }
 
-connect()
+export const isVerified = async(address) => {
+  if(address.includes('.eth')) {
+    address = await convertENS(address)
+  } else if(address.length != 42){
+    return 'ERROR: INCORRECT ETHEREUM ADDRESS'
+  }
+
+  return await isAuthenticated(address)
+}
+
+verify()
