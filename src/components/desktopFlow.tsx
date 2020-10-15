@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import brightId from '../assets/img/brightid.svg'
 import { Button, Modal, Container, ModalBody } from 'reactstrap';
 import { getWeb3 } from "../util/web3";
 import { Contract } from 'web3-eth-contract';
-import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "../util/constants";
+import Web3 from 'web3'
+
+import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "../assets/constants/parameters";
 import { getAuthenticated, checkAuthenticated } from "../util/brightID"
-import Web3 from 'web3';
+import brightId from '../assets/img/brightid.svg'
+
 import BrightEthereumDeepLinkQR from "./qrGenerator";
 import Blockie from "./blockie";
 

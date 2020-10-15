@@ -22,6 +22,7 @@ export const getWeb3 = (): Promise<Web3> => (
       try {
         const web3Modal = new Web3Modal({
           network: 'mainnet',
+          cacheProvider: true,
           theme: {
             background: "#214564",
             main: "#dd866c",
@@ -31,10 +32,11 @@ export const getWeb3 = (): Promise<Web3> => (
           },
           providerOptions
         })
-  
+        web3Modal.clearCachedProvider()
+
         const provider = await web3Modal.connect()
         let web3 = new Web3(provider)
-  
+
         resolve(web3)
       } catch(e){
         reject(e)

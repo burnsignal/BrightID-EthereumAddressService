@@ -1,5 +1,5 @@
 import React from "react";
-import { deepLinkPrefix } from "../util/deepLink";
+import { DEEPLINK } from "../assets/constants/parameters";
 const QRCode = require("qrcode.react");
 
 interface BrightEthereumDeepLinkQRProps {
@@ -9,7 +9,7 @@ interface BrightEthereumDeepLinkQRProps {
 const BrightEthereumDeepLinkQR = ({
   ethAddress,
 }: BrightEthereumDeepLinkQRProps) => {
-  const deepLink = deepLinkPrefix + ethAddress;
+  const deepLink = DEEPLINK + ethAddress;
 
   return <QRCode value={deepLink} size={200} />
 };

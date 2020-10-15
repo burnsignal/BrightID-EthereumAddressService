@@ -1,6 +1,5 @@
 import { toChecksumAddress } from 'web3-utils';
-import { BRIGHTID_ENDPOINT } from './constants';
-
+import { BRIGHTID_ENDPOINT } from '../assets/constants/parameters';
 
 export const getAuthenticated = async () => {
   try {

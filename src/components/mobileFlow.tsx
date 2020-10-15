@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button, Input, FormGroup, FormFeedback, Modal, Label, Container, ModalBody, Form } from 'reactstrap';
-import Web3 from 'web3';
+import Web3 from 'web3'
+
+import { androidOrIphoneLink } from "../util/detectMobile"
+import { DEEPLINK } from '../assets/constants/parameters'
 import { convertENS } from '../util/ens'
-import { androidOrIphoneLink } from "../util/detectMobile";
-import { deepLinkPrefix } from "../util/deepLink";
 import { getWeb3 } from "../util/web3";
 
 import brightId from '../assets/img/brightid.svg'
@@ -65,7 +66,7 @@ export const MobileFlow = () => {
             return;
         }
         setTimeout(() => { window.location.assign(brightIdStoreLink) }, 1000);
-        window.location.assign(deepLinkPrefix + `${address}`)
+        window.location.assign(DEEPLINK + `${address}`)
     }
 
     const resetState = () => {

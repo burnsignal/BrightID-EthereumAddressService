@@ -21,8 +21,9 @@ import ReactDOM from "react-dom";
 // styles for this kit
 import "./assets/css/bootstrap.min.css";
 import "./assets/scss/bright-ethereum.scss";
-import "./assets/demo/demo.css";
-import "./assets/demo/nucleo-icons-page-styles.css";
+import "./assets/css/demo.css";
+import "./assets/css/nucleo-icons-page-styles.css";
+
 // pages for this kit
 import Modal from "./components/modal.js";
 import Index from "./views/Index.js";
