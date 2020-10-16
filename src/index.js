@@ -14,26 +14,33 @@ import { convertENS } from './util/ens'
 import Modal from "./components/modal";
 import Index from "./views";
 
-export function verify() {
-  const el = document.createElement("div");
-  el.id = 'brightid-modal';
-
-  document.body.appendChild(el);
-
-  ReactDOM.render(
-    <Modal active> <Index /> </Modal>,
-    document.getElementById(el.id)
-  )
-}
-
-export const isVerified = async(address) => {
-  if(address.includes('.eth')) {
-    address = await convertENS(address)
-  } else if(address.length != 42){
-    return 'ERROR: INCORRECT ETHEREUM ADDRESS'
+class BrightID {
+  constructor(sponsorAddress) {
+    this.sponsor = sponsorAddress
+    this.isVerified = BrightID.isVerified
+    this.verify = BrightID.verify
   }
 
-  return await isAuthenticated(address)
-}
+  static verify() {
+    const el = document.createElement("div");
+    el.id = 'brightid-modal';
 
-verify()
+    document.body.appendChild(el);
+
+    ReactDOM.render(
+      <Modal active> <Index /> </Modal>,
+        document.getElementById(el.id)
+      )
+  }
+
+  static async isVerified(address){
+    if(address.includes('.eth')) {
+      address = await convertENS(address)
+    } else if(address.length != 42){
+      return 'ERROR: INCORRECT ETHEREUM ADDRESS'
+    }
+
+    return await isAuthenticated(address)
+  }
+
+}
