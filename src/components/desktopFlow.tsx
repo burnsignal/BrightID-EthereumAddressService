@@ -4,8 +4,8 @@ import { getWeb3 } from "../util/web3";
 import { Contract } from 'web3-eth-contract';
 import Web3 from 'web3'
 
-import { SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS } from "../assets/constants/parameters";
-import { isAuthenticated } from "../util/brightID"
+import { SPONSOR_ABI } from "../assets/constants/parameters";
+import { isAuthenticated } from "../util/brightID";
 import brightId from '../assets/img/brightid.svg'
 
 import BrightEthereumDeepLinkQR from "./qrGenerator";
@@ -46,7 +46,7 @@ export const DesktopFlow = () => {
     const configureWeb3 = async(web3: Web3) => {
         let accs = await web3.eth.getAccounts();
 
-        setInstance(new web3.eth.Contract(SPONSOR_CONTRACT_ABI, SPONSOR_CONTRACT_ADDRESS));
+        setInstance(new web3.eth.Contract(SPONSOR_ABI, sponsorAddress));
         setUserAuthenticated(await isAuthenticated(accs[0]));
         updateAddress(accs[0]);
         setAccounts(accs);

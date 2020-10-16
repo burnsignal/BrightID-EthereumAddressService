@@ -1,19 +1,29 @@
-import React from "react";
+/*eslint-disable*/
+import React, { useState } from "react";
 
-import Root from "../components/root";
+// reactstrap components
+import { Container } from "reactstrap";
 
-export default function Index() {
-  React.useEffect(() => {
-    document.body.classList.add("index-page");
-    document.body.classList.add("sidebar-collapse");
-    document.documentElement.classList.remove("nav-open");
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-    return function cleanup() {
-      document.body.classList.remove("index-page");
-      document.body.classList.remove("sidebar-collapse");
-    };
-  });
+// core components
+import { mobileCheck } from "../util/detectMobile";
+import { MobileFlow } from "../components/mobileFlow";
+import { DesktopFlow } from "../components/desktopFlow";
 
-  return <Root />
+function Index() {
+  const [isMobile] = useState(mobileCheck())
+  return (
+    <>
+      <div className="page-header clear-filter">
+        <Container>
+          <div className="content-center brand">
+            {
+              isMobile ? <MobileFlow/> : <DesktopFlow/>
+            }
+          </div>
+        </Container>
+      </div>
+    </>
+  );
 }
+
+export default Index;
