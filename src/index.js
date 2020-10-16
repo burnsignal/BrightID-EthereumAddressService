@@ -20,15 +20,18 @@ export default class BrightID {
   constructor(sponsor, sponsorAddress) {
     switch (sponsor){
       case true:
-        if(!isAddress(sponsorAddress){
-          this.sponsor = SPONSOR_ADDRESS
+        if(!isAddress(sponsorAddress)){
+          this.sponsor = SPONSOR_ADDRESS;
         } else {
-          this.sponsor = sponsorAddress
+          this.sponsor = sponsorAddress;
         }
+        break;
       case false:
-        this.sponsor = false
-      default:
-        this.sponsor = SPONSOR_ADDRESS
+        this.sponsor = false;
+        break;
+      case null:
+        this.sponsor = SPONSOR_ADDRESS;
+        break;
     }
 
     this.isVerified = BrightID.isVerified
@@ -42,9 +45,11 @@ export default class BrightID {
     document.body.appendChild(el);
 
     ReactDOM.render(
-      <Modal active> <Index /> </Modal>,
-        document.getElementById(el.id)
-      )
+      <Modal active>
+        <Index sponsorAddress={this.sponsor}/>
+      </Modal>,
+      document.getElementById(el.id)
+    )
   }
 
   static async isVerified(address){

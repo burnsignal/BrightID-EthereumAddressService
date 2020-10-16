@@ -11,7 +11,7 @@ import brightId from '../assets/img/brightid.svg'
 import BrightEthereumDeepLinkQR from "./qrGenerator";
 import Blockie from "./blockie";
 
-export const DesktopFlow = () => {
+export const DesktopFlow = ({ sponsorAddress }) => {
     const [accounts, setAccounts] = useState<string[]>([]);
     const [contractInstance, setInstance] = useState<Contract>()
     const [showQR, toggleShowQR] = useState(false);
@@ -19,6 +19,7 @@ export const DesktopFlow = () => {
     const [userAuthenticated, setUserAuthenticated] = useState(false);
     const [txSubmitted, setTxSubmitted] = useState(false);
     const [ web3Connection, setConnection ] = useState(false);
+    const [ nonSponsor, setNon ] = useState(false);
 
     const maybeInitWeb3 = async () => {
         if (!contractInstance || accounts.length === 0) {
@@ -54,21 +55,26 @@ export const DesktopFlow = () => {
 
       const resetState = () => {
         toggleShowQR(false);
+        setNon(false)
       }
 
-      const sponsor = async () => {
-        if (contractInstance !== undefined) {
-            await contractInstance.methods.sponsor(accounts[0])
-            .send({
-                from: accounts[0]
-            })
-            .on('transactionHash', () => {
+     const sponsor = async () => {
+        if(sponsorAddress){
+          if (contractInstance !== undefined) {
+              await contractInstance.methods.sponsor(accounts[0])
+              .send({
+                  from: accounts[0]
+              })
+              .on('transactionHash', () => {
                 setTxSubmitted(true);
-            })
-            .on('error', (error: any) => {
+              })
+              .on('error', (error: any) => {
                 console.error('An error ocurred when attempting to sponsor with with BrightID', error);
-            })
-            }
+              })
+          }
+       } else {
+         setNon(true)
+      }
     }
 
     return (
@@ -107,7 +113,7 @@ export const DesktopFlow = () => {
                         <div>
                                 <div>
                                     {
-                                      !userAuthenticated &&
+                                      !userAuthenticated && !nonSponsor &&
                                         <div className='unauthd'>
                                             <p>
                                                 Is this the address you would like to link with BrightID?
@@ -119,7 +125,7 @@ export const DesktopFlow = () => {
                                         </div>
                                     }
                                     {
-                                        userAuthenticated &&
+                                        userAuthenticated && !nonSponsor &&
                                         <div className='authd'>
                                             <p>Your address:</p>
                                             <Blockie address={address} />
@@ -130,7 +136,7 @@ export const DesktopFlow = () => {
                                         </div>
                                     }
                                     {
-                                        txSubmitted &&
+                                        txSubmitted || nonSponsor &&
                                         <div className="submitted">
                                             <p>Scan the code with any QR scanner or the BrightID app to link your accounts and you're finished!</p>
                                             <div className='qr-code'>
