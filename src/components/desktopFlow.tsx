@@ -86,7 +86,7 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                     onClick={maybeInitWeb3}
                     color="neutral"
                     type="button"
-                >
+                  >
                     <div className="btn-inner-container">
                       <p>
                         Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:

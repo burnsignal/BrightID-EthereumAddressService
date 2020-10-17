@@ -383,6 +383,10 @@
   transition: all .2s;
 }
 
+#brightid-modal {
+  overflow: hidden !important;
+}
+
 #images h4 {
   margin-bottom: 30px;
 }
@@ -553,7 +557,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-top:-37.5%;
+  margin-bottom: 25%;
 }
 
 .btn-selection .btn-content {
@@ -814,4 +818,16 @@ label button {
 
 label button:hover {
   box-shadow: none;
+}
+
+@media only screen and (min-width: 2000px) {
+
+  .btn-selection {
+    margin-bottom: 20%;
+  }
+
+  .modal-frame {
+    max-width: 22.5vw;
+  }
+
 }

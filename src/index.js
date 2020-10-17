@@ -29,7 +29,7 @@ export default class BrightID {
       case false:
         this.sponsor = false;
         break;
-      case null:
+      default:
         this.sponsor = SPONSOR_ADDRESS;
         break;
     }
