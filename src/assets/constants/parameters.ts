@@ -2,7 +2,7 @@ import { AbiItem } from 'web3-utils';
 
 export const DEEPLINK = "brightid://link-verification/http:%2f%2fnode.brightid.org/ethereum/";
 
-export const BRIGHTID_ENDPOINT = 'https://sp.brightid.org/node/v4/verifications/ethereum';
+export const BRIGHTID_ENDPOINT = 'https://app.brightid.org/node/v5/verifications/ethereum';
 export const SPONSOR_ADDRESS = '0xA4DDdF5C53F5FCa4d6901d14FAE463bC02638898';
 export const SPONSOR_ABI: AbiItem[] = [
   {
