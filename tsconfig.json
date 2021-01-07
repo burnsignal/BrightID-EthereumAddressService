@@ -20,7 +20,7 @@
     "declaration": false,
     "jsx": "react",
     "isolatedModules": true,
-    "noEmit": false
+    "noEmit": true
   },
   "exclude": [
     "node_modules"
