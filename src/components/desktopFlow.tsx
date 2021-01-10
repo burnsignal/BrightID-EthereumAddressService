@@ -3,6 +3,7 @@ import { getWeb3 } from "../util/web3";
 import { Contract } from 'web3-eth-contract';
 import Web3 from 'web3'
 
+import { Button } from '@material-ui/core'
 import { SPONSOR_ABI } from "../assets/constants/parameters";
 import { isAuthenticated } from "../util/brightID";
 import brightId from '../assets/img/brightid.svg'
@@ -108,7 +109,6 @@ export const DesktopFlow = ({ sponsorAddress }) => {
         {
             showQR &&
             <div>
-                    <Container>
                         <div>
                                 <div>
                                     {
@@ -163,7 +163,6 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                                     </Button>
                                 }
                         </div>
-                    </Container>
             </div>
         }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Web3 from 'web3'
 
+import { Button, TextField as Input, FormControl, FormLabel } from '@material-ui/core'
 import { androidOrIphoneLink } from "../util/detectMobile"
 import { DEEPLINK } from '../assets/constants/parameters'
 import { convertENS } from '../util/ens'
@@ -75,7 +76,7 @@ export const MobileFlow = () => {
     }
 
     return (
-        <Form>
+        <>
           <div className="main-form">
              {!showQR &&
               <div>
@@ -83,13 +84,13 @@ export const MobileFlow = () => {
                   <img src={brightId} alt="" />
                 </div>
                 <p>Enter your Ethereum address or ENS Domain</p>
-                <FormGroup>
+                <FormControl>
                   {input == '' &&
-                    <Label for="ethereumAddress">
+                    <FormLabel for="ethereumAddress">
                       <Button onClick={getAddress}>
                         <img src={metamask}/>
                       </Button>
-                    </Label>
+                    </FormLabel>
                   }
                   <Input
                     onChange={handleChange}
@@ -101,10 +102,7 @@ export const MobileFlow = () => {
                     value={input}
                     invalid={invalidError}
                   />
-                  <FormFeedback id="invalidAddress">
-                    Looks like this wallet address is invalid
-                  </FormFeedback>
-                </FormGroup>
+                </FormControl>
                 <Button
                   onClick={submitAddress}
                   size="lg"
@@ -118,7 +116,7 @@ export const MobileFlow = () => {
             }
             {
               showQR && !notSupported &&
-               <Container>
+               <>
                  <div style={{textAlign: 'left'}}>
                    <ol>
                      <li style={{marginBottom: '10px'}}>
@@ -155,12 +153,11 @@ export const MobileFlow = () => {
                       Close
                     </Button>
                   </div>
-                </Container>
+                </>
                 }
                 {
                   notSupported &&
                     <div>
-                      <Container>
                         <p>Unfortunately, the BrightID app is not available for your mobile operating system.</p>
                         <div className="modal-footer">
                           <Button
@@ -172,11 +169,9 @@ export const MobileFlow = () => {
                             Close
                           </Button>
                         </div>
-                     </Container>
                   </div>
                 }
             </div>
-
-        </Form>
+        </>
     )
 }
