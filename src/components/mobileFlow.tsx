@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Button, Input, FormGroup, FormFeedback, Modal, Label, Container, ModalBody, Form } from 'reactstrap';
 import Web3 from 'web3'
 
 import { androidOrIphoneLink } from "../util/detectMobile"

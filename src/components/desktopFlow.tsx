@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Container, ModalBody } from 'reactstrap';
 import { getWeb3 } from "../util/web3";
 import { Contract } from 'web3-eth-contract';
 import Web3 from 'web3'

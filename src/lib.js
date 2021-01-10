@@ -2,10 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 // styles for this kit
-import "./assets/css/bootstrap.min.css";
-import "./assets/scss/bright-ethereum.scss";
-import "./assets/css/demo.css";
-import "./assets/css/nucleo-icons-page-styles.css";
+import "./assets/css/root.css";
 
 import { SPONSOR_ADDRESS } from './assets/constants/parameters'
 import { isAddress } from './assets/constants/functions'

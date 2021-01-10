@@ -11,7 +11,7 @@ function App(){
 
    return(
      <div>
-      <button onClick={() => instance.verify()}>
+      <button onClick={() => BrightId.verify()}>
         TRIGGER
       </button>
     </div>
