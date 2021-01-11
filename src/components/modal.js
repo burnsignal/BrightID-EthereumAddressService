@@ -1,23 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
-export default function ModalWrapper({ children, active }) {
-  const [modal, setModal] = useState(active);
+import {
+   Dialog, DialogActions,DialogContent, DialogContentText, DialogTitle
+ } from '@material-ui/core';
+import Slide from '@material-ui/core/Slide';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Clear';
+import Typography from '@material-ui/core/Typography';
 
-  const toggle = () => setModal(!modal);
+import useStyles from '../assets/css/components/modal'
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+export default function Modal({ active, children }) {
+  const [open, setOpen] = useState(false);
+  const classes = useStyles()
+
+  const handleClose = () => setOpen(false)
+
+  function TitleDialog(props) {
+    let { children, onClose, ...other } = props;
+
+    return (
+      <DialogTitle disableTypography className={classes.root} {...other}>
+        <Typography variant="h6">{children}</Typography>
+        {onClose ? (
+          <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        ) : null}
+      </DialogTitle>
+    );
+  }
+
+  useEffect(() => {
+    setOpen(active)
+  }, [ active ])
 
   return (
-    <div>
-      <Modal isOpen={modal} toggle={toggle} className='modal-frame'>
-        <ModalHeader toggle={toggle}>&nbsp;</ModalHeader>
-         <ModalBody>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        className={classes.root}
+        keepMounted
+        onClose={handleClose}
+      >
+        <TitleDialog onClose={handleClose}>BrightID</TitleDialog>
+        <DialogContent>
           {children}
-        </ModalBody>
-        <ModalFooter>
-          <div className="copyright" id="copyright">
-            © {new Date().getFullYear()} Bright Ethereum{" "}
-          </div>
-        </ModalFooter>
-      </Modal>
-    </div>
+        </DialogContent>
+      </Dialog>
   );
 }

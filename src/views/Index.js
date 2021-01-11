@@ -6,8 +6,8 @@ import { mobileCheck } from "../util/detectMobile";
 import { MobileFlow } from "../components/mobileFlow";
 import { DesktopFlow } from "../components/desktopFlow";
 
-function Index({ sponsorAddress }) {
-  const [isMobile] = useState(mobileCheck()
+export default function Index({ sponsorAddress }) {
+  const [isMobile] = useState(mobileCheck())
 
   return (
     <>
@@ -17,5 +17,3 @@ function Index({ sponsorAddress }) {
     </>
   );
 }
-
-export default Index;
