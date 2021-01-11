@@ -104,7 +104,10 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                       <img src={authereum} /> <span> Authereum </span>
                     </li>
                   </ul>
-                </div>
+               </div>
+              <label className={classes.copyright}>
+                © {new Date().getFullYear()} Bright Ethereum{" "}
+              </label>
             </div>
           }{showQR &&
             <div className={classes.container}>
@@ -150,7 +153,7 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                     Go back
                   </Button>
                 </div>
-                {!userAuthenticated &&
+                {!userAuthenticated && !nonSponsor &&
                   <Button onClick={() => sponsor()} variant='outlined'>
                     Continue
                   </Button>

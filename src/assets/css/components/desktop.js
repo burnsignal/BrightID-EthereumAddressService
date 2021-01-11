@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     alignItems: 'center',
   },
+  copyright: {
+    color: '#e78a64',
+    fontWeight: 600
+  },
   logo: {
     width: 225,
   },

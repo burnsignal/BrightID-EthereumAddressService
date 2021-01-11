@@ -14,11 +14,10 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiDialog-paper': {
       width: '35em',
       margin: 0
-    }
+    },
   },
   title: {
     margin: 0,
-    marginBottom: theme.spacing(1)
   },
   closeButton: {
     position: 'absolute',
