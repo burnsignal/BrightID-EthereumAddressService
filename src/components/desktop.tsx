@@ -3,7 +3,6 @@ import { getWeb3 } from "../util/web3";
 import { Contract } from 'web3-eth-contract';
 import Web3 from 'web3'
 
-import { Button } from '@material-ui/core'
 import { SPONSOR_ABI } from "../assets/constants/parameters";
 import { isAuthenticated } from "../util/brightID";
 import brightId from '../assets/img/brightid.svg'
@@ -13,6 +12,7 @@ import walletconnect from '../assets/img/walletconnect.png'
 import authereum from '../assets/img/authereum.png'
 
 import BrightEthereumDeepLinkQR from "./qrGenerator";
+import Button from './button';
 import Blockie from "./blockie";
 
 export const DesktopFlow = ({ sponsorAddress }) => {
@@ -117,25 +117,30 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                     <div>
                       <Blockie address={address} />
                       <p>
-                        <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
+                        <span>{address.substring(0, 6)}...{address.substring(38, 64)}</span>
                       </p>
                     </div>
                   </div>
                 </>
               }{userAuthenticated && !nonSponsor &&
                 <>
-                  <p>Your address:</p>
-                  <Blockie address={address} />
-                  <p>
-                    <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
-                  </p>
-                  <p>is already verified with BrightID.</p>
+                  <div className={classes.column}>
+                    <div>
+                      <Blockie address={address} />
+                      <p>
+                        <span>{address.substring(0, 6)}...{address.substring(38, 64)}</span>
+                      </p>
+                    </div>
+                    <p>is already verified with BrightID.</p>
+                  </div>
                 </>
               }{txSubmitted || nonSponsor &&
                 <>
                   <p>Scan the code with any QR scanner or the BrightID app to link your accounts and you're finished!</p>
-                  <div>
-                    <BrightEthereumDeepLinkQR ethAddress={address} />
+                  <div className={classes.column}>
+                    <div>
+                      <BrightEthereumDeepLinkQR ethAddress={address} />
+                    </div>
                   </div>
                 </>
               }

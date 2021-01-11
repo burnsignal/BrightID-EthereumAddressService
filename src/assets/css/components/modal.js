@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: theme.spacing(2),
     '& a': {
-      color: 'orange !important',
+      color: '#e78a64 !important',
       cursor: 'pointer',
       '&:hover': {
         color: '#00e79a !important'
@@ -18,19 +18,22 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     margin: 0,
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(1)
   },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: 'orange',
+    color: '#cacaca',
+    '& :hover': {
+      color: '#e78a64'
+    }
   },
   content: {
     paddingRight: theme.spacing(5),
     paddingLeft: theme.spacing(5),
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(3)
+    paddingBottom: theme.spacing(4)
   }
 }));
 

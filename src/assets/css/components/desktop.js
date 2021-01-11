@@ -15,7 +15,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     textAlign: 'center',
     alignItems: 'center',
-    height: '20em'
+    height: '20em',
+    '& p': {
+      '& span': {
+        color: '#999999',
+        fontSize: 20
+      }
+    }
   },
   container: {
     display: 'flex',
@@ -40,14 +46,15 @@ const useStyles = makeStyles((theme) => ({
   list: {
     listStyle: 'none',
     float: 'right',
+    textAlign: 'left',
     fontSize: 18,
     '& li': {
       border: '2px solid #cacaca',
       color: '#666666',
-      padding: '7.5px 25px',
+      padding: '10px 25px',
       cursor: 'pointer',
       borderRadius: 25,
-      marginBottom: 7.5,
+      marginBottom: 10,
       '& img': {
         position: 'absolute',
         marginTop: -3,
@@ -57,8 +64,8 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: 35
       },
       '&:hover': {
-        borderColor: 'orange',
-        transform: 'translateY(-.5px)'
+        borderColor: '#e78a64',
+        transform: 'translateY(-1px)'
       }
     },
     '& li:nth-of-type(2)': {
