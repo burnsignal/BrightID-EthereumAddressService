@@ -8,6 +8,9 @@ import { SPONSOR_ABI } from "../assets/constants/parameters";
 import { isAuthenticated } from "../util/brightID";
 import brightId from '../assets/img/brightid.svg'
 import useStyles from '../assets/css/components/desktop'
+import metamask from '../assets/img/metamask.png'
+import walletconnect from '../assets/img/walletconnect.png'
+import authereum from '../assets/img/authereum.png'
 
 import BrightEthereumDeepLinkQR from "./qrGenerator";
 import Blockie from "./blockie";
@@ -86,17 +89,22 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                 <p>
                   Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
                 </p>
-                <div>
-                  <img className={classes.logo} src={brightId} alt="" />
-                  <div>
-                    <ul>
-                      <li onClick={() => maybeInitWeb3('metamask')}>Metamask</li>
-                      <li onClick={() => maybeInitWeb3('walletconnect')}>WalletConnect</li>
-                      <li onClick={() => maybeInitWeb3(null)}>Authereum</li>
-                    </ul>
+                <div className={classes.container}>
+                  <div className={classes.image}>
+                    <img className={classes.logo} src={brightId} alt="" />
                   </div>
+                  <ul className={classes.list}>
+                    <li onClick={() => maybeInitWeb3('metamask')}>
+                      <img src={metamask} /> <span> Metamask </span>
+                    </li>
+                    <li onClick={() => maybeInitWeb3('walletconnect')}>
+                      <img src={walletconnect} /> <span> Walletconnect </span>
+                    </li>
+                    <li onClick={() => maybeInitWeb3(null)}>
+                      <img src={authereum} /> <span> Authereum </span>
+                    </li>
+                  </ul>
                 </div>
-                <p><strong>Get started</strong></p>
             </div>
          }{showQR &&
             <div>
