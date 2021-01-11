@@ -21,18 +21,18 @@ export const DesktopFlow = ({ sponsorAddress }) => {
     const [ web3Connection, setConnection ] = useState(false);
     const [ nonSponsor, setNon ] = useState(false);
 
-    const maybeInitWeb3 = async () => {
+    const maybeInitWeb3 = async (provider) => {
         if (!contractInstance || accounts.length === 0) {
-            await initWeb3();
+            await initWeb3(provider);
             toggleShowQR(true);
         } else {
             toggleShowQR(true);
         }
     }
 
-    const initWeb3 = async () => {
+    const initWeb3 = async (provider) => {
         try {
-          const web3 = await getWeb3()
+          const web3 = await getWeb3(provider)
           await configureWeb3(web3)
 
           // @ts-ignore
@@ -80,7 +80,7 @@ export const DesktopFlow = ({ sponsorAddress }) => {
     return (
         <div>
           {!showQR &&
-              <div onClick={maybeInitWeb3}>
+              <div>
                 <p>
                   Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
                 </p>
@@ -88,9 +88,9 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                   <img src={brightId} alt="" />
                   <div>
                     <ul>
-                      <li>Metamask</li>
-                      <li>WalletConnect</li>
-                      <li>Authereum</li>
+                      <li onClick={() => maybeInitWeb3('metamask')}>Metamask</li>
+                      <li onClick={() => maybeInitWeb3('walletconnect')}>WalletConnect</li>
+                      <li onClick={() => maybeInitWeb3(null)}>Authereum</li>
                     </ul>
                   </div>
                 </div>

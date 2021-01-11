@@ -25,7 +25,7 @@ export const MobileFlow = () => {
 
     const getAddress = async () => {
         try {
-          const web3 = await getWeb3()
+          const web3 = await getWeb3('metamask')
           const accounts = await web3.eth.getAccounts()
 
           updateInput(accounts[0])

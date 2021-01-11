@@ -40,17 +40,18 @@ export default function Modal({ active, children }) {
   }, [ active ])
 
   return (
+    <div className={classes.container}>
       <Dialog
         open={open}
         TransitionComponent={Transition}
         className={classes.root}
         keepMounted
-        onClose={handleClose}
       >
         <TitleDialog onClose={handleClose}>BrightID</TitleDialog>
         <DialogContent>
           {children}
         </DialogContent>
       </Dialog>
+    </div>
   );
 }

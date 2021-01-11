@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
       margin: 0
     }
   },
+  container: {
+    zIndex: 2,
+  },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
