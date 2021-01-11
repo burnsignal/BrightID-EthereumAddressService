@@ -37,21 +37,19 @@ export default function Modal({ active, children }) {
 
   useEffect(() => {
     setOpen(active)
-  }, [ active ])
+  }, [ , active ])
 
   return (
-    <div className={classes.container}>
-      <Dialog
-        open={open}
-        TransitionComponent={Transition}
-        className={classes.root}
-        keepMounted
-      >
-        <TitleDialog onClose={handleClose}>BrightID</TitleDialog>
-        <DialogContent>
-          {children}
-        </DialogContent>
-      </Dialog>
-    </div>
+    <Dialog
+      open={open}
+      TransitionComponent={Transition}
+      className={classes.root}
+      keepMounted
+    >
+      <TitleDialog onClose={handleClose} />
+      <DialogContent>
+        {children}
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -9,6 +9,7 @@ import { getWeb3 } from "../util/web3";
 
 import brightId from '../assets/img/brightid.svg'
 import metamask from '../assets/img/metamask.png'
+import useStyles from '../assets/css/components/mobile'
 
 export const MobileFlow = () => {
     const [input, updateInput] = useState('');
@@ -18,6 +19,7 @@ export const MobileFlow = () => {
     const [showQR, toggleShowQR] = useState(false);
     const [brightIdStoreLink] = useState(androidOrIphoneLink());
     const [notSupported, toggleNotSupported] = useState(false);
+    const classes = useStyles();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         updateInput(e.target.value)
@@ -79,7 +81,7 @@ export const MobileFlow = () => {
         <div>
           {!showQR &&
             <div>
-              <div className="mobile-brand">
+              <div>
                 <img src={brightId} alt="" />
               </div>
               <p>Enter your Ethereum address or ENS Domain</p>

@@ -7,6 +7,7 @@ import { Button } from '@material-ui/core'
 import { SPONSOR_ABI } from "../assets/constants/parameters";
 import { isAuthenticated } from "../util/brightID";
 import brightId from '../assets/img/brightid.svg'
+import useStyles from '../assets/css/components/desktop'
 
 import BrightEthereumDeepLinkQR from "./qrGenerator";
 import Blockie from "./blockie";
@@ -20,6 +21,7 @@ export const DesktopFlow = ({ sponsorAddress }) => {
     const [txSubmitted, setTxSubmitted] = useState(false);
     const [ web3Connection, setConnection ] = useState(false);
     const [ nonSponsor, setNon ] = useState(false);
+    const classes = useStyles();
 
     const maybeInitWeb3 = async (provider) => {
         if (!contractInstance || accounts.length === 0) {
@@ -85,7 +87,7 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                   Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
                 </p>
                 <div>
-                  <img src={brightId} alt="" />
+                  <img className={classes.logo} src={brightId} alt="" />
                   <div>
                     <ul>
                       <li onClick={() => maybeInitWeb3('metamask')}>Metamask</li>
