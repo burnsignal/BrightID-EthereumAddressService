@@ -79,93 +79,66 @@ export const DesktopFlow = ({ sponsorAddress }) => {
 
     return (
         <div>
-        {
-            !showQR &&
-            <div className="btn-selection">
-                <Button className="btn"
-                    onClick={maybeInitWeb3}
-                    color="neutral"
-                    type="button"
-                  >
-                    <div className="btn-inner-container">
+          {!showQR &&
+              <div onClick={maybeInitWeb3}>
+                <p>
+                  Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
+                </p>
+                <div>
+                  <img src={brightId} alt="" />
+                  <div>
+                    <ul>
+                      <li>Metamask</li>
+                      <li>WalletConnect</li>
+                      <li>Authereum</li>
+                    </ul>
+                  </div>
+                </div>
+                <p><strong>Get started</strong></p>
+            </div>
+         }{showQR &&
+            <div>
+              <div>
+                <div>
+                  {!userAuthenticated && !nonSponsor &&
+                    <div>
                       <p>
-                        Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
+                        Is this the address you would like to link with BrightID?
                       </p>
-                      <div className="btn-content">
-                        <img src={brightId} alt="" />
-                          <div className="btn-text">
-                            <ul className="small-caps">
-                              <li>Metamask</li>
-                              <li>WalletConnect</li>
-                              <li>Authereum</li>
-                            </ul>
-                          </div>
-                       </div>
-                       <p><strong>Get started</strong></p>
+                      <Blockie address={address} />
+                      <p>
+                        <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
+                      </p>
                     </div>
+                  }{userAuthenticated && !nonSponsor &&
+                     <div>
+                        <p>Your address:</p>
+                        <Blockie address={address} />
+                        <p>
+                          <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
+                        </p>
+                        <p>is already verified with BrightID.</p>
+                     </div>
+                   }{txSubmitted || nonSponsor &&
+                      <div>
+                         <p>Scan the code with any QR scanner or the BrightID app to link your accounts and you're finished!</p>
+                         <div>
+                            <BrightEthereumDeepLinkQR ethAddress={address} />
+                         </div>
+                      </div>
+                    }
+                </div>
+                <Button variant='contained' onClick={resetState}>
+                  Go back
                 </Button>
+                {!userAuthenticated &&
+                  <Button onClick={() => sponsor()} variant='contained'>
+                    Continue
+                  </Button>
+                }
+            </div>
           </div>
         }
-        {
-            showQR &&
-            <div>
-                        <div>
-                                <div>
-                                    {
-                                      !userAuthenticated && !nonSponsor &&
-                                        <div className='unauthd'>
-                                            <p>
-                                                Is this the address you would like to link with BrightID?
-                                            </p>
-                                            <Blockie address={address} />
-                                            <p>
-                                              <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
-                                            </p>
-                                        </div>
-                                    }
-                                    {
-                                        userAuthenticated && !nonSponsor &&
-                                        <div className='authd'>
-                                            <p>Your address:</p>
-                                            <Blockie address={address} />
-                                            <p>
-                                              <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
-                                            </p>
-                                            <p>is already verified with BrightID.</p>
-                                        </div>
-                                    }
-                                    {
-                                        txSubmitted || nonSponsor &&
-                                        <div className="submitted">
-                                            <p>Scan the code with any QR scanner or the BrightID app to link your accounts and you're finished!</p>
-                                            <div className='qr-code'>
-                                              <BrightEthereumDeepLinkQR ethAddress={address} />
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                                <Button
-                                    size="lg"
-                                    color="primary"
-                                    type="button"
-                                    onClick={resetState}
-                                >
-                                    Go back
-                                </Button>
-                                {
-                                    !userAuthenticated &&
-                                    <Button
-                                        onClick={() => sponsor()}
-                                        size="lg"
-                                        color="warning"
-                                        type="button">
-                                        Continue
-                                    </Button>
-                                }
-                        </div>
-            </div>
-        }
-
-    </div>
+      </div>
     )
 }
