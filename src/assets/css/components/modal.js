@@ -12,8 +12,13 @@ const useStyles = makeStyles((theme) => ({
       }
     },
     '& .MuiDialog-paper': {
+      width: '35em',
       margin: 0
     }
+  },
+  title: {
+    margin: 0,
+    marginBottom: theme.spacing(2)
   },
   closeButton: {
     position: 'absolute',
@@ -21,6 +26,12 @@ const useStyles = makeStyles((theme) => ({
     top: theme.spacing(1),
     color: 'orange',
   },
+  content: {
+    paddingRight: theme.spacing(5),
+    paddingLeft: theme.spacing(5),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(3)
+  }
 }));
 
 export default useStyles;

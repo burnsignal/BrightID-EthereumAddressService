@@ -24,7 +24,7 @@ export default function Modal({ active, children }) {
     let { children, onClose, ...other } = props;
 
     return (
-      <DialogTitle disableTypography className={classes.root} {...other}>
+      <DialogTitle disableTypography className={classes.title} {...other}>
         <Typography variant="h6">{children}</Typography>
         {onClose ? (
           <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
@@ -47,7 +47,7 @@ export default function Modal({ active, children }) {
       keepMounted
     >
       <TitleDialog onClose={handleClose} />
-      <DialogContent>
+      <DialogContent className={classes.content}>
         {children}
       </DialogContent>
     </Dialog>

@@ -89,7 +89,7 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                 <p>
                   Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
                 </p>
-                <div className={classes.container}>
+                <div className={classes.row}>
                   <div className={classes.image}>
                     <img className={classes.logo} src={brightId} alt="" />
                   </div>
@@ -106,49 +106,53 @@ export const DesktopFlow = ({ sponsorAddress }) => {
                   </ul>
                 </div>
             </div>
-         }{showQR &&
-            <div>
-              <div>
-                <div>
-                  {!userAuthenticated && !nonSponsor &&
+          }{showQR &&
+            <div className={classes.container}>
+              {!userAuthenticated && !nonSponsor &&
+                <>
+                  <p>
+                    Is this the address you would like to link with BrightID?
+                  </p>
+                  <div className={classes.column}>
                     <div>
-                      <p>
-                        Is this the address you would like to link with BrightID?
-                      </p>
                       <Blockie address={address} />
                       <p>
                         <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
                       </p>
                     </div>
-                  }{userAuthenticated && !nonSponsor &&
-                     <div>
-                        <p>Your address:</p>
-                        <Blockie address={address} />
-                        <p>
-                          <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
-                        </p>
-                        <p>is already verified with BrightID.</p>
-                     </div>
-                   }{txSubmitted || nonSponsor &&
-                      <div>
-                         <p>Scan the code with any QR scanner or the BrightID app to link your accounts and you're finished!</p>
-                         <div>
-                            <BrightEthereumDeepLinkQR ethAddress={address} />
-                         </div>
-                      </div>
-                    }
+                  </div>
+                </>
+              }{userAuthenticated && !nonSponsor &&
+                <>
+                  <p>Your address:</p>
+                  <Blockie address={address} />
+                  <p>
+                    <strong>{address.substring(0, 6)}...{address.substring(38, 64)}</strong>
+                  </p>
+                  <p>is already verified with BrightID.</p>
+                </>
+              }{txSubmitted || nonSponsor &&
+                <>
+                  <p>Scan the code with any QR scanner or the BrightID app to link your accounts and you're finished!</p>
+                  <div>
+                    <BrightEthereumDeepLinkQR ethAddress={address} />
+                  </div>
+                </>
+              }
+              <div className={classes.buttons}>
+                <div>
+                  <Button variant='outlined' onClick={resetState}>
+                    Go back
+                  </Button>
                 </div>
-                <Button variant='contained' onClick={resetState}>
-                  Go back
-                </Button>
                 {!userAuthenticated &&
-                  <Button onClick={() => sponsor()} variant='contained'>
+                  <Button onClick={() => sponsor()} variant='outlined'>
                     Continue
                   </Button>
                 }
-            </div>
+             </div>
           </div>
-        }
+         }
       </div>
     )
 }
