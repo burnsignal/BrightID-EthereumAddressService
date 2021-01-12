@@ -7,7 +7,8 @@ const Restyled = styled(Button)({
   border: '2px solid #cacaca',
   borderRadius: 5,
   padding: '.5em 2.25em',
-  '&:hover': {
+  color: 'black !important',
+  '&:hover, :active': {
     borderColor: '#e78a64'
   }
 });

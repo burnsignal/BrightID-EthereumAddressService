@@ -32,10 +32,13 @@ const useStyles = makeStyles((theme) => ({
   },
   copyright: {
     color: '#e78a64',
+    position: 'absolute',
+    marginTop: -20,
     fontWeight: 600
   },
   logo: {
     width: 225,
+    marginTop: -10
   },
   image: {
     float: 'left'
@@ -51,11 +54,11 @@ const useStyles = makeStyles((theme) => ({
     listStyle: 'none',
     float: 'right',
     textAlign: 'left',
-    fontSize: 18,
+    fontSize: '18px !important',
     '& li': {
       border: '2px solid #cacaca',
       color: '#666666',
-      padding: '10px 25px',
+      padding: '10px 25px !important',
       cursor: 'pointer',
       borderRadius: 25,
       marginBottom: 10,

@@ -1,7 +1,7 @@
 {
   "name": "brightid",
   "homepage": "https://ethereum.brightid.org",
-  "version": "1.0.0",
+  "version": "1.4.5",
   "main": "./dist/index.js",
   "dependencies": {
     "@babel/core": "^7.11.6",
@@ -38,6 +38,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts --max_old_space_size=4096 build",
+    "compile": "tsc .",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",

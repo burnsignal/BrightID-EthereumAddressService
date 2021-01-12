@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: 0,
+    color: 'black !important',
     padding: theme.spacing(2),
     '& a': {
       color: '#e78a64 !important',
@@ -31,8 +32,10 @@ const useStyles = makeStyles((theme) => ({
   content: {
     paddingRight: theme.spacing(5),
     paddingLeft: theme.spacing(5),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(2),
+    '& p': {
+      color: 'black'
+    }
   }
 }));
 
