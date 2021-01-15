@@ -5,6 +5,10 @@ import TextField from '@material-ui/core/TextField'
 
 const Restyled = styled(TextField)({
   borderWidth: 2,
+  '&:hover + fieldset': {
+    borderWidth: 2,
+    borderColor: '#e78a64'
+  },
   '& input:valid + fieldset': {
     borderWidth: 2,
   },
@@ -18,6 +22,11 @@ const Restyled = styled(TextField)({
   '& .MuiOutlinedInput-notchedOutline': {
     borderWidth: 2,
   },
+  '& .MuiOutlinedInput-root:hover': {
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#e78a64',
+    }
+  },
   '& .MuiOutlinedInput-root.Mui-error': {
      '&  .MuiOutlinedInput-notchedOutline': {
        borderWidth: 2,
@@ -29,7 +38,7 @@ const Restyled = styled(TextField)({
        borderWidth: 2,
        borderColor: '#e78a64'
      }
-  }
+  },
 });
 
 export default Restyled;

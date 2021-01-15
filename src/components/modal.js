@@ -18,7 +18,10 @@ export default function Modal({ active, children, isMobile }) {
   const [open, setOpen] = useState(false);
   const classes = useStyles()
 
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+    document.getElementById("brightid-modal").remove()
+  }
 
   function TitleDialog(props) {
     let { children, onClose, ...other } = props;
