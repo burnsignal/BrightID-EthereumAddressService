@@ -7,11 +7,9 @@ import "./assets/css/root.css";
 import { SPONSOR_ADDRESS } from './assets/constants/parameters'
 import { isAddress } from './assets/constants/functions'
 import { isAuthenticated } from './util/brightID'
-import { mobileCheck } from './util/detectMobile'
 import { convertENS } from './util/ens'
 
 // pages for this kit
-import Modal from "./components/modal";
 import Index from "./views";
 
 export default class BrightID {
@@ -38,16 +36,12 @@ export default class BrightID {
 
   static verify() {
     const el = document.createElement("div");
-    const native = mobileCheck();
 
     el.id = 'brightid-modal';
-
     document.body.appendChild(el);
 
     ReactDOM.render(
-      <Modal active isMobile={native}>
-        <Index isMobile={native} sponsorAddress={this.sponsor}/>
-      </Modal>,
+      <Index sponsorAddress={this.sponsor} />,
       document.getElementById(el.id)
     )
   }

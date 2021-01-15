@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Web3 from 'web3'
 
-import { Button as BlankButton, TextField as Input, FormControl, FormLabel } from '@material-ui/core'
+import { Button as BlankButton, FormControl, FormLabel } from '@material-ui/core'
 import { androidOrIphoneLink } from "../util/detectMobile"
 import { DEEPLINK } from '../assets/constants/parameters'
 import { convertENS } from '../util/ens'
 import { getWeb3 } from "../util/web3";
 import Button from './button'
+import Input from './input'
 
 import brightId from '../assets/img/brightid.svg'
 import metamask from '../assets/img/metamask.png'
