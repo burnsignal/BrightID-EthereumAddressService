@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Web3 from 'web3'
 
-import { Button, TextField as Input, FormControl, FormLabel } from '@material-ui/core'
+import { Button as BlankButton, TextField as Input, FormControl, FormLabel } from '@material-ui/core'
 import { androidOrIphoneLink } from "../util/detectMobile"
 import { DEEPLINK } from '../assets/constants/parameters'
 import { convertENS } from '../util/ens'
 import { getWeb3 } from "../util/web3";
+import Button from './button'
 
 import brightId from '../assets/img/brightid.svg'
 import metamask from '../assets/img/metamask.png'
@@ -77,46 +78,55 @@ export const MobileFlow = () => {
         toggleNotSupported(false);
     }
 
+    function LabelButton(){
+      return(
+        <FormLabel>
+          {input == '' &&
+            <BlankButton onClick={getAddress}>
+              <img src={metamask}/>
+            </BlankButton>
+          }
+        </FormLabel>
+      )
+    }
+
     return (
         <div>
           {!showQR &&
-            <div>
+            <div className={classes.container}>
               <div>
-                <img src={brightId} alt="" />
+                <img className={classes.logo} src={brightId} alt="" />
               </div>
               <p>Enter your Ethereum address or ENS Domain</p>
               <FormControl>
-                {input == '' &&
-                   <FormLabel>
-                     <Button onClick={getAddress}>
-                       <img src={metamask}/>
-                     </Button>
-                   </FormLabel>
-                }
                 <Input
                   onChange={handleChange}
                   id="ethereumAddress"
                   className="main-input"
                   placeholder="0x83...c403"
+                  variant='outlined'
                   value={input}
                   error={invalidError}
+                  InputProps={{
+                    endAdornment: <LabelButton />
+                  }}
                 />
               </FormControl>
               <Button
                 onClick={submitAddress}
-                variant="contained"
+                variant="outlined"
                 disabled={!validAddress}
               >
                 Submit
               </Button>
             </div>
           }{showQR && !notSupported &&
-            <div>
-              <div style={{textAlign: 'left'}}>
+            <div className={classes.container}>
+              <div className={classes.list}>
                 <ol>
                   <li style={{marginBottom: '10px'}}>
                     Please send an empty 0 value transaction to <strong>brightid.burnsignal.eth</strong> from
-                    <p style={{ fontSize: '9px', fontWeight: 'bold', marginBottom: '0px' }}>
+                    <p className={classes.address}>
                       {address}
                     </p>
                     to register with the BrightID contract
@@ -126,11 +136,13 @@ export const MobileFlow = () => {
                   </li>
                 </ol>
               </div>
-              <div>
-                <Button onClick={() => openAppOrAppStore()} variant='contained'>
-                  Link
-                </Button>
-                <Button variant='contained' onClick={resetState}>
+              <div className={classes.buttons}>
+                <div>
+                  <Button onClick={() => openAppOrAppStore()} variant='outlined'>
+                    Link
+                  </Button>
+                </div>
+                <Button variant='outlined' onClick={resetState}>
                   Close
                 </Button>
               </div>

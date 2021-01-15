@@ -14,7 +14,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Modal({ active, children }) {
+export default function Modal({ active, children, isMobile }) {
   const [open, setOpen] = useState(false);
   const classes = useStyles()
 
@@ -39,6 +39,8 @@ export default function Modal({ active, children }) {
     setOpen(active)
   }, [ , active ])
 
+  const modalClass = isMobile ? classes.native : classes.content
+
   return (
     <Dialog
       open={open}
@@ -47,7 +49,7 @@ export default function Modal({ active, children }) {
       keepMounted
     >
       <TitleDialog onClose={handleClose} />
-      <DialogContent className={classes.content}>
+      <DialogContent className={modalClass}>
         {children}
       </DialogContent>
     </Dialog>

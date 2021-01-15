@@ -36,6 +36,13 @@ const useStyles = makeStyles((theme) => ({
     '& p': {
       color: 'black'
     }
+  },
+  native: {
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    '& p': {
+      color: 'black'
+    }
   }
 }));
 
