@@ -22,12 +22,13 @@ const useStyles = makeStyles((theme) => ({
   address: {
     fontSize: '9px',
     fontWeight: 'bold',
+    marginTop: 10
   },
   list: {
     textAlign: 'left',
     '& ol': {
       marginBlock: 0,
-      paddingInlineEnd: 20
+      paddingInlineEnd: 20,
       '& li': {
         color: 'black',
       }
