@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     '& ol': {
       marginBlock: 0,
       paddingInlineEnd: 20
+      '& li': {
+        color: 'black',
+      }
     }
   }
 }));

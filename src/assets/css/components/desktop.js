@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     textAlign: 'center',
     alignItems: 'center',
-    height: '20em',
+    height: '18em',
     '& p': {
       '& span': {
         color: '#999999',
-        fontSize: 20
+        fontSize: 18
       }
     }
   },
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   copyright: {
-    color: '#e78a64',
+    color: 'rgba(231, 138,	100, 0.875)',
     position: 'absolute',
     marginTop: -20,
     fontWeight: 600
@@ -48,17 +48,20 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     '& div:first-of-type':{
       marginRight: 20
-    }
+    },
+    paddingBottom: 10
   },
   list: {
     listStyle: 'none',
     float: 'right',
     textAlign: 'left',
-    fontSize: '18px !important',
+    fontSize: 16,
     '& li': {
       border: '2px solid #cacaca',
       color: '#666666',
       padding: '10px 25px !important',
+      marginBlock: 0,
+      boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px',
       cursor: 'pointer',
       borderRadius: 25,
       marginBottom: 10,

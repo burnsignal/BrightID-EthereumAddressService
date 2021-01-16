@@ -8,8 +8,9 @@ const Restyled = styled(Button)({
   borderRadius: 5,
   padding: '.5em 2.25em',
   color: 'black !important',
-  '&:hover, :active': {
-    borderColor: '#e78a64'
+  '&:hover, :active, :focus ': {
+    borderColor: '#e78a64',
+    outlineColor: '#e78a64'
   }
 });
 
