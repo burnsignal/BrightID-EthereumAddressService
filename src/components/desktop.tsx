@@ -15,7 +15,7 @@ import BrightEthereumDeepLinkQR from "./qrGenerator";
 import Button from './button';
 import Blockie from "./blockie";
 
-export const DesktopFlow = ({ sponsorAddress }) => {
+export const DesktopFlow = ({ sponsorAddress, provider }) => {
     const [accounts, setAccounts] = useState<string[]>([]);
     const [contractInstance, setInstance] = useState<Contract>()
     const [showQR, toggleShowQR] = useState(false);
@@ -26,9 +26,9 @@ export const DesktopFlow = ({ sponsorAddress }) => {
     const [ nonSponsor, setNon ] = useState(false);
     const classes = useStyles();
 
-    const maybeInitWeb3 = async (provider) => {
-        if (!contractInstance || accounts.length === 0) {
-            await initWeb3(provider);
+    const maybeInitWeb3 = async (instance) => {
+        if (!provider || !contractInstance || accounts.length === 0) {
+            await initWeb3(instance);
             toggleShowQR(true);
         } else {
             toggleShowQR(true);
