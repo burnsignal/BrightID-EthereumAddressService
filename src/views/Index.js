@@ -30,7 +30,7 @@ export default function Index({ sponsorAddress, provider }) {
     <ThemeProvider>
       <Modal active isMobile={isMobile}>
         {
-          isMobile ?
+          !isMobile ?
           <DesktopFlow
             sponsorAddress={sponsorAddress}
             provider={provider}
