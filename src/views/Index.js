@@ -23,14 +23,19 @@ const getTheme = () => createMuiTheme({
   }
 });
 
-export default function Index({ sponsorAddress }) {
+export default function Index({ sponsorAddress, provider }) {
   const isMobile = mobileCheck();
 
   return (
     <ThemeProvider>
       <Modal active isMobile={isMobile}>
         {
-          isMobile ? <MobileFlow/> : <DesktopFlow sponsorAddress={sponsorAddress} />
+          isMobile ?
+          <DesktopFlow
+            sponsorAddress={sponsorAddress}
+            provider={provider}
+          />
+          : <MobileFlow />
         }
       </Modal>
     </ThemeProvider>

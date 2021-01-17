@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// styles for this kit
 import "./assets/css/root.css";
 
 import { SPONSOR_ADDRESS } from './assets/constants/parameters'
@@ -9,39 +8,40 @@ import { isAddress } from './assets/constants/functions'
 import { isAuthenticated } from './util/brightID'
 import { convertENS } from './util/ens'
 
-// pages for this kit
 import Index from "./views";
 
 export default class BrightID {
-  constructor(sponsor, sponsorAddress) {
-    switch (sponsor){
-      case true:
-        if(!isAddress(sponsorAddress)){
-          this.sponsor = SPONSOR_ADDRESS;
-        } else {
-          this.sponsor = sponsorAddress;
-        }
-        break;
+  constructor(sponsorAddress, provider) {
+    switch (isAddress(sponsorAddress)){
       case false:
-        this.sponsor = false;
+        if(typeof sponsorAddress !== 'bool'){
+           this.sponsor = SPONSOR_ADDRESS;
+         } else {
+           this.sponsor = false;
+         }
         break;
-      default:
-        this.sponsor = SPONSOR_ADDRESS;
+      case true:
+        this.sponsor = sponsorAddress;
         break;
     }
 
     this.isVerified = BrightID.isVerified
     this.verify = BrightID.verify
+    this.provider = provider
   }
 
   static verify() {
     const el = document.createElement("div");
+    const { provider, sponsor } = this;
 
     el.id = 'brightid-modal';
     document.body.appendChild(el);
 
     ReactDOM.render(
-      <Index sponsorAddress={this.sponsor} />,
+        <Index
+          provider={provider}
+          sponsorAddress={sponsor}
+        />,
       document.getElementById(el.id)
     )
   }
