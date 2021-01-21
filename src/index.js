@@ -25,9 +25,9 @@ export default class BrightID {
         break;
     }
 
-    this.isVerified = BrightID.isVerified
-    this.verify = BrightID.verify
-    this.provider = provider
+    this.isVerified = BrightID.isVerified;
+    this.verify = BrightID.verify;
+    this.provider = provider;
   }
 
   static verify() {
@@ -49,7 +49,7 @@ export default class BrightID {
   static async isVerified(address){
     if(address.includes('.eth')) {
       address = await convertENS(address)
-    } else if(address.length != 42){
+    } else if(!isAddress(address)) {
       return 'ERROR: INCORRECT ETHEREUM ADDRESS'
     }
 
