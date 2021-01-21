@@ -13,8 +13,8 @@ import Index from "./views";
 export default class BrightID {
   constructor(sponsorAddress, provider) {
     switch (isAddress(sponsorAddress)){
-      case false:
-        if(typeof sponsorAddress !== 'boolean'){
+      default:
+        if(typeof sponsorAddress !== "boolean"){
            this.sponsor = SPONSOR_ADDRESS;
          } else {
            this.sponsor = false;
