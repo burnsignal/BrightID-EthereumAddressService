@@ -14,7 +14,7 @@ export default class BrightID {
   constructor(sponsorAddress, provider) {
     switch (isAddress(sponsorAddress)){
       case false:
-        if(typeof sponsorAddress !== 'bool'){
+        if(typeof sponsorAddress !== 'boolean'){
            this.sponsor = SPONSOR_ADDRESS;
          } else {
            this.sponsor = false;

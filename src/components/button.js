@@ -8,10 +8,15 @@ const Restyled = styled(Button)({
   borderRadius: 5,
   padding: '.5em 2.25em',
   color: 'black !important',
-  '&:hover, :active, :focus ': {
-    borderColor: '#e78a64',
-    outlineColor: '#e78a64'
-  }
+  outlineColor: '#cacaca !important',
+  '&:hover': {
+    borderColor: '#e78a64 !important',
+    outlineColor: '#e78a64 !important'
+  },
+  '&:active': {
+    borderColor: '#e78a64 !important',
+    outlineColor: '#e78a64 !important'
+  },
 });
 
 export default Restyled;
