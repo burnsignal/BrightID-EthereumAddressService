@@ -22,7 +22,7 @@ export const getWeb3 = (source): Promise<Web3> => (
           await window.ethereum.enable();
           provider = window.ethereum;
         } else {
-          let authereum = new Authereum();
+          let authereum = new Authereum('mainnet');
           provider = authereum.getProvider();
         }
 
