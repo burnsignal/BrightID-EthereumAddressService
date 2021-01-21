@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   closeButton: {
     outlineColor: '#ffffff !important',
+    border: 'none !important',
     right: theme.spacing(1),
     top: theme.spacing(1),
     position: 'absolute',

@@ -29,7 +29,6 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
     const maybeInitWeb3 = async (instance) => {
         if (!provider || !contractInstance || accounts.length === 0) {
             await initWeb3(instance);
-            toggleShowQR(true);
         } else {
             toggleShowQR(true);
         }
@@ -39,6 +38,7 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
         try {
           const web3 = await getWeb3(provider)
           await configureWeb3(web3)
+          toggleShowQR(true);
 
           // @ts-ignore
           window.ethereum.on('accountsChanged',
