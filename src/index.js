@@ -36,7 +36,8 @@ export default class BrightID {
   static verify() {
     const el = document.createElement("div");
     const { provider, sponsor } = this;
-    const sponsorAddress = !sponsor ?
+    const isBool = typeof sponsor == "boolean";
+    const sponsorAddress =  !isBool ?
       SPONSOR_ADDRESS : sponsor;
 
     el.id = 'brightid-modal';
