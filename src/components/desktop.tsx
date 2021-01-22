@@ -87,7 +87,7 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
           {!showQR &&
               <div>
                 <p>
-                  Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
+                  Link <b>BrightID</b> to your Ethereum account directly with a supported wallet:
                 </p>
                 <div className={classes.row}>
                   <div className={classes.image}>
