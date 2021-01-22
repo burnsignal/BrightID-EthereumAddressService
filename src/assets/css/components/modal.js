@@ -21,11 +21,13 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
   },
   closeButton: {
-    position: 'absolute',
+    outline: 'none !important',
+    border: 'none !important',
     right: theme.spacing(1),
     top: theme.spacing(1),
+    position: 'absolute',
     color: '#cacaca',
-    '& :hover': {
+    '&:hover': {
       color: '#e78a64'
     }
   },

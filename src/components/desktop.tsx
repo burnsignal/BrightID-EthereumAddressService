@@ -27,11 +27,10 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
     const classes = useStyles();
 
     const maybeInitWeb3 = async (instance) => {
-        if (!provider || !contractInstance || accounts.length === 0) {
-            await initWeb3(instance);
-            toggleShowQR(true);
+        if(sponsorAddress == false){
+          await toggleShowQR(true);
         } else {
-            toggleShowQR(true);
+          await initWeb3(instance);
         }
     }
 
@@ -44,6 +43,8 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
           window.ethereum.on('accountsChanged',
           async () => await configureWeb3(web3))
 
+          await toggleShowQR(true);
+
         } catch(e) {
           alert('Web3 login could not be detected')
         }
@@ -51,9 +52,11 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
 
     const configureWeb3 = async(web3: Web3) => {
         let accs = await web3.eth.getAccounts();
+        let auth = await isAuthenticated(accs[0]);
+        let contract = new web3.eth.Contract(SPONSOR_ABI, sponsorAddress);
 
-        setInstance(new web3.eth.Contract(SPONSOR_ABI, sponsorAddress));
-        setUserAuthenticated(await isAuthenticated(accs[0]));
+        setUserAuthenticated(auth);
+        setInstance(contract);
         updateAddress(accs[0]);
         setAccounts(accs);
       }
@@ -87,7 +90,7 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
           {!showQR &&
               <div>
                 <p>
-                  Link <strong>BrightID</strong> to your Ethereum account directly with a supported wallet:
+                  Link <b>BrightID</b> to your Ethereum account directly with a supported wallet:
                 </p>
                 <div className={classes.row}>
                   <div className={classes.image}>
@@ -125,7 +128,7 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
                     </div>
                   </div>
                 </>
-              }{userAuthenticated && !nonSponsor &&
+              }{userAuthenticated &&
                 <>
                   <div className={classes.column}>
                     <div>

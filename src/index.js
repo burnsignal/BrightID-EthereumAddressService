@@ -14,7 +14,7 @@ export default class BrightID {
   constructor(sponsorAddress, provider) {
     switch (isAddress(sponsorAddress)){
       case false:
-        if(typeof sponsorAddress !== 'bool'){
+        if(typeof sponsorAddress != "boolean"){
            this.sponsor = SPONSOR_ADDRESS;
          } else {
            this.sponsor = false;
@@ -23,24 +23,30 @@ export default class BrightID {
       case true:
         this.sponsor = sponsorAddress;
         break;
+      default:
+        this.sponsor = SPONSOR_ADDRESS;
+        break;
     }
 
-    this.isVerified = BrightID.isVerified
-    this.verify = BrightID.verify
-    this.provider = provider
+    this.isVerified = BrightID.isVerified;
+    this.verify = BrightID.verify;
+    this.provider = provider;
   }
 
   static verify() {
     const el = document.createElement("div");
     const { provider, sponsor } = this;
+    const isBool = typeof sponsor == "boolean";
+    const sponsorAddress =  !isBool ?
+      SPONSOR_ADDRESS : sponsor;
 
     el.id = 'brightid-modal';
     document.body.appendChild(el);
 
     ReactDOM.render(
         <Index
+          sponsorAddress={sponsorAddress}
           provider={provider}
-          sponsorAddress={sponsor}
         />,
       document.getElementById(el.id)
     )
@@ -49,7 +55,7 @@ export default class BrightID {
   static async isVerified(address){
     if(address.includes('.eth')) {
       address = await convertENS(address)
-    } else if(address.length != 42){
+    } else if(!isAddress(address)) {
       return 'ERROR: INCORRECT ETHEREUM ADDRESS'
     }
 

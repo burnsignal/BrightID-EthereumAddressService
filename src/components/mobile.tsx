@@ -126,14 +126,14 @@ export const MobileFlow = () => {
               <div className={classes.list}>
                 <ol>
                   <li style={{marginBottom: '10px'}}>
-                    Please send an empty 0 value transaction to <strong>brightid.burnsignal.eth</strong> from
+                    Please send an empty 0 value transaction to <b>brightid.burnsignal.eth</b> from
                     <p className={classes.address}>
                       {address}
                     </p>
                     to register with the BrightID contract
                   </li>
                   <li>
-                    Click the <strong>Link</strong> button below to link this address to your BrightID account using the BrightID mobile app
+                    Click the <b>Link</b> button below to link this address to your BrightID account using the BrightID mobile app
                   </li>
                 </ol>
               </div>
