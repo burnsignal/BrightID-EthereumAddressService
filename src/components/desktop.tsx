@@ -51,9 +51,11 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
 
     const configureWeb3 = async(web3: Web3) => {
         let accs = await web3.eth.getAccounts();
+        let isAuthenticated = await isAuthenticated(accs[0]);
+        let contract = new web3.eth.Contract(SPONSOR_ABI, sponsorAddress);
 
-        setInstance(new web3.eth.Contract(SPONSOR_ABI, sponsorAddress));
-        setUserAuthenticated(await isAuthenticated(accs[0]));
+        setInstance(contract);
+        setUserAuthenticated(isAuthenticated);
         updateAddress(accs[0]);
         setAccounts(accs);
       }
@@ -125,7 +127,7 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
                     </div>
                   </div>
                 </>
-              }{userAuthenticated && !nonSponsor &&
+              }{userAuthenticated &&
                 <>
                   <div className={classes.column}>
                     <div>
