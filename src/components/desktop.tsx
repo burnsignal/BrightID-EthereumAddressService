@@ -27,10 +27,10 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
     const classes = useStyles();
 
     const maybeInitWeb3 = async (instance) => {
-        if (!provider || !contractInstance || accounts.length === 0) {
-            await initWeb3(instance);
+        if(sponsorAddress == false){
+          await toggleShowQR(true);
         } else {
-            toggleShowQR(true);
+          await initWeb3(instance);
         }
     }
 
@@ -38,11 +38,12 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
         try {
           const web3 = await getWeb3(provider)
           await configureWeb3(web3)
-          toggleShowQR(true);
 
           // @ts-ignore
           window.ethereum.on('accountsChanged',
           async () => await configureWeb3(web3))
+
+          await toggleShowQR(true);
 
         } catch(e) {
           alert('Web3 login could not be detected')
@@ -51,11 +52,11 @@ export const DesktopFlow = ({ sponsorAddress, provider }) => {
 
     const configureWeb3 = async(web3: Web3) => {
         let accs = await web3.eth.getAccounts();
-        let isAuthenticated = await isAuthenticated(accs[0]);
+        let auth = await isAuthenticated(accs[0]);
         let contract = new web3.eth.Contract(SPONSOR_ABI, sponsorAddress);
 
+        setUserAuthenticated(auth);
         setInstance(contract);
-        setUserAuthenticated(isAuthenticated);
         updateAddress(accs[0]);
         setAccounts(accs);
       }
