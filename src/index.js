@@ -36,14 +36,16 @@ export default class BrightID {
   static verify() {
     const el = document.createElement("div");
     const { provider, sponsor } = this;
+    const sponsorAddress = !sponsor ?
+      SPONSOR_ADDRESS : sponsor;
 
     el.id = 'brightid-modal';
     document.body.appendChild(el);
 
     ReactDOM.render(
         <Index
+          sponsorAddress={sponsorAddress}
           provider={provider}
-          sponsorAddress={sponsor}
         />,
       document.getElementById(el.id)
     )

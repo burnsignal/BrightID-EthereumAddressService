@@ -1,7 +1,7 @@
 import { sha3_256 } from 'js-sha3'
 
 export const isAddress = (address) => {
-    if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
+    if (!!address || !/^(0x)?[0-9a-f]{40}$/i.test(address)) {
         // check if it has the basic requirements of an address
         return false;
     } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
