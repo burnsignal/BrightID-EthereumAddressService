@@ -22,7 +22,7 @@
     "jazzicon": "^1.5.0",
     "js-sha3": "^0.8.0",
     "moment": "2.24.0",
-    "node-sass": "4.14.1",
+    "node-sass": "7.0.0",
     "nouislider": "14.0.2",
     "qrcode.react": "^0.9.3",
     "react": "^16.13.1",
